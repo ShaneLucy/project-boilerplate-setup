@@ -1,34 +1,47 @@
-import { readFileSync } from "fs";
+import { exec } from "child_process";
+
+import { constants } from "fs";
+import { copyFile } from "fs/promises";
+
+import { SUCCESS, ERROR } from "./globals.mjs";
+import projectType from "./project-type.mjs";
+import setEslintConfig from "./eslint-config.mjs";
+
+const PROJECT_TYPE = projectType();
+const ESLINT_PACKAGE = setEslintConfig(PROJECT_TYPE);
 
 /**
- * Console colours
+ * Install eslint
  */
-const SUCCESS = "\x1b[32m%s\x1b[0m";
-const ERROR = "\x1b[31m%s\x1b[0m";
+const installEslint = () => {
+  console.log(`Installing ${ESLINT_PACKAGE}`);
 
-let packageJson;
-try {
-  packageJson = JSON.parse(readFileSync("./package.json"));
-  console.log(SUCCESS, "package.json read");
-} catch {
-  console.error(ERROR, "Couldn't find a package.json");
-}
-
-const projectType = () => {
-  let type;
-  for (const key in packageJson.devDependencies) {
-    if (key === "svelte") {
-      type = key;
-      break;
+  exec(`npm i -D ${ESLINT_PACKAGE}`, (error, stdout) => {
+    if (error) {
+      console.error(ERROR, error);
+      return;
     }
-  }
-
-  if (type === undefined) {
-    console.error(ERROR, "Couldn't determine project type");
-  } else {
-    console.log(SUCCESS, `${type} project detected`);
-  }
-  return type;
+    console.log(SUCCESS, "Installed eslint");
+    console.log(stdout);
+  });
 };
 
-projectType();
+installEslint();
+
+/**
+ * for each file in the correct directory run copy
+ */
+try {
+  await copyFile("source.txt", "destination.txt");
+  console.log("source.txt was copied to destination.txt");
+} catch {
+  console.log("The file could not be copied");
+}
+
+// By using COPYFILE_EXCL, the operation will fail if destination.txt exists.
+try {
+  await copyFile("source.txt", "destination.txt", constants.COPYFILE_EXCL);
+  console.log("source.txt was copied to destination.txt");
+} catch {
+  console.log("The file could not be copied");
+}
