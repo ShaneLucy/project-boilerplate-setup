@@ -1,5 +1,5 @@
 module.exports = {
-  extends: "airbnb-prettier-import",
+  extends: "typescript-airbnb-prettier",
   rules: {
     "no-console": "off",
   },
