@@ -1,23 +1,22 @@
-import { exec } from "child_process";
-
 import Project from "./controllers/Project";
-import Logger from "./controllers/Logger";
+import Exec from "./controllers/Exec";
+import { HOOKS } from "./globals";
 
-console.log(Project.ESLINT);
-console.log(Project.LANGUAGE);
-console.log(Project.FRAMEWORK);
+const configureEslint = (): void => {
+  Exec.run(`npm i -D ${Project.ESLINT}`);
+  Exec.run("npm set-script lint 'prettier --write . && eslint src/**'");
+  Exec.run("npm set-script lint-fix 'prettier --write . && eslint src/** --fix'");
+};
 
-const installEslint = () => {
-  Logger.info(`Installing ${Project.ESLINT}`);
+const configureGitHooks = (): void => {
+  Exec.runSync("npm i -D husky");
+  Exec.runSync("npx husky install");
 
-  exec(`npm i -D ${Project.ESLINT}`, (error, stdout) => {
-    if (error) {
-      Logger.error(error);
-      return;
-    }
-    Logger.success("Eslint installed & configured");
-    console.log(stdout);
+  HOOKS.forEach((hook) => {
+    Exec.runSync(`npx husky add .husky/${hook.name} "${hook.action}"`);
+    Exec.runSync(`git add .husky/${hook.name}`);
   });
 };
 
-installEslint();
+configureGitHooks();
+configureEslint();
