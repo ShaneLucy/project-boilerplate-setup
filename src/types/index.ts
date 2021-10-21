@@ -50,3 +50,8 @@ export interface PackageJson {
       >;
   workspaces?: string[];
 }
+
+export interface Hooks {
+  name: string;
+  action: string;
+}
