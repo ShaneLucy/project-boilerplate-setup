@@ -1,6 +1,6 @@
 import { readFileSync } from "fs";
-
 import Logger from "./controllers/Logger";
+import Exec from "./controllers/Exec";
 import type { PackageJson, Hooks } from "./types";
 
 const PACKAGE_JSON = (() => {
@@ -14,11 +14,25 @@ const PACKAGE_JSON = (() => {
   }
 })();
 
+export const [OWNER, REPO] = ((): Array<string> => {
+  const REMOTE_URL = Exec.runSync("git config --get remote.origin.url").toString();
+  let response: Array<string> = [];
+
+  if (typeof REMOTE_URL === typeof "") {
+    const WORDS = REMOTE_URL.split(":");
+    response = [WORDS[1].split("/")[0], WORDS[1].split("/")[1].split(".")[0]];
+  }
+
+  return response;
+})();
+
 export const ESLINT_OPTIONS = [
   "eslint-config-typescript-airbnb-prettier-svelte",
   "eslint-config-typescript-airbnb-prettier",
   "eslint-config-airbnb-prettier-import",
 ];
+
+export const BASE_GITHUB_BADGE_URL = `https://github.com/<OWNER>/<REPOSITORY>/actions/workflows/<WORKFLOW_FILE>/badge.svg`;
 
 export const HOOKS: Array<Hooks> = [
   {
