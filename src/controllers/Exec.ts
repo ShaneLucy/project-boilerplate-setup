@@ -16,14 +16,18 @@ export default class Exec {
     });
   }
 
-  static runSync(command: string) {
+  static runSync(command: string): string | Error {
     Logger.info(`Executing ${command}`);
 
-    try {
-      const resp = execSync(`${command}`);
-      Logger.info(resp);
-    } catch (e) {
-      Logger.error(e);
-    }
+    return (() => {
+      try {
+        const resp = execSync(`${command}`);
+        Logger.info(resp);
+        return resp.toString();
+      } catch (e) {
+        Logger.error(e);
+        return e as Error;
+      }
+    })();
   }
 }
