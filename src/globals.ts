@@ -48,5 +48,15 @@ export const HOOKS: Array<Hooks> = [
   //   action: "do something to prevent commiting on master",
   // },
 ];
+
 export const KEYS = Object.values(PACKAGE_JSON).flatMap((val) => Object.keys(val));
 export const FRAMEWORK_OPTIONS = ["svelte", "react", "vue"];
+
+export const PRETTIER_FILE_CONTENT = `{
+  "printWidth": 100
+}\n`;
+
+export const eslintFileContents = (eslint: string): string =>
+  `module.exports = {
+    extends: "${eslint.split("eslint-config-")[1]}",
+  };\n`;
