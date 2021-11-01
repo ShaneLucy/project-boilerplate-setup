@@ -1,4 +1,6 @@
 import { exec, execSync } from "child_process";
+import { writeFile } from "fs/promises";
+
 import Logger from "./Logger";
 
 export default class Exec {
@@ -29,5 +31,15 @@ export default class Exec {
         return e as Error;
       }
     })();
+  }
+
+  static async writeFile(file: string, content: string) {
+    Logger.info(`Creating ${file}`);
+    try {
+      await writeFile(file, content);
+      Logger.success(`${file} configured`);
+    } catch (error) {
+      Logger.error(error);
+    }
   }
 }
