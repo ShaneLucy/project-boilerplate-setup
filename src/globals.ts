@@ -14,17 +14,24 @@ const PACKAGE_JSON = (() => {
   }
 })();
 
-export const [OWNER, REPO] = ((): Array<string> => {
-  const REMOTE_URL = Exec.runSync("git config --get remote.origin.url").toString();
-  let response: Array<string> = [];
+const setGit = (): Array<string> | Array<boolean> =>
+  (() => {
+    try {
+      const REMOTE_URL = Exec.runSync("git config --get remote.origin.url").toString();
+      let response: Array<string> = [];
 
-  if (typeof REMOTE_URL === typeof "") {
-    const WORDS = REMOTE_URL.split(":");
-    response = [WORDS[1].split("/")[0], WORDS[1].split("/")[1].split(".")[0]];
-  }
+      if (typeof REMOTE_URL === typeof "") {
+        const WORDS = REMOTE_URL.split(":");
+        response = [WORDS[1].split("/")[0], WORDS[1].split("/")[1].split(".")[0]];
+      }
 
-  return response;
-})();
+      return response;
+    } catch (e) {
+      Logger.error(e);
+      return [false, false];
+    }
+  })();
+export const [OWNER, REPOSITORY] = setGit();
 
 export const ESLINT_OPTIONS = [
   "eslint-config-typescript-airbnb-prettier-svelte",
@@ -60,3 +67,17 @@ export const eslintFileContents = (eslint: string): string =>
   `module.exports = {
     extends: "${eslint.split("eslint-config-")[1]}",
   };\n`;
+
+export const ESLINT_IGNORE_CONTENT = `
+.eslintrc.js
+node_modules/**
+`;
+
+export const GITIGNORE_CONTENT = `
+/node_modules/
+.DS_Store
+`;
+
+export const PRETTIER_IGNORE = `
+node_modules/**
+`;
