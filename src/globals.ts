@@ -39,6 +39,7 @@ export const ESLINT_OPTIONS = [
   "eslint-config-typescript-airbnb-prettier",
   "eslint-config-airbnb-prettier-import",
 ];
+const FRAMEWORK_OPTIONS = ["svelte", "react", "vue"];
 
 export const BASE_GITHUB_BADGE_URL = `https://github.com/<OWNER>/<REPOSITORY>/actions/workflows/<WORKFLOW_FILE>/badge.svg`;
 
@@ -58,7 +59,6 @@ export const HOOKS: Array<Hooks> = [
 ];
 
 const KEYS = Object.values(PACKAGE_JSON).flatMap((val) => Object.keys(val));
-const FRAMEWORK_OPTIONS = ["svelte", "react", "vue"];
 
 export const PRETTIER_FILE_CONTENT = `{
   "printWidth": 100
@@ -78,9 +78,14 @@ export const PRETTIER_IGNORE_CONTENT = `
 node_modules/**
 `;
 
-export const FRAMEWORK = KEYS.find((element) => FRAMEWORK_OPTIONS.includes(element));
+export const setFramework = (keys: Array<string>): string | undefined =>
+  keys.find((element) => FRAMEWORK_OPTIONS.includes(element));
 
-const LANGUAGE = KEYS.find((element) => element === "typescript") ? "typescript" : "javascript";
+export const setLanguage = (keys: Array<string>): string =>
+  keys.find((element) => element === "typescript") ? "typescript" : "javascript";
+
+export const FRAMEWORK = setFramework(KEYS);
+const LANGUAGE = setLanguage(KEYS);
 
 const setEslint = (): string => {
   let eslint = "";
