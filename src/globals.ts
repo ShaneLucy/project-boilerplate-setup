@@ -74,11 +74,6 @@ export const ESLINT_IGNORE_CONTENT = `
 node_modules/**
 `;
 
-export const GITIGNORE_CONTENT = `
-/node_modules/
-.DS_Store
-`;
-
 export const PRETTIER_IGNORE_CONTENT = `
 node_modules/**
 `;
