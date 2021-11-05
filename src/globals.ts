@@ -31,6 +31,7 @@ const setGit = (): Array<string> | Array<boolean> =>
       return [false, false];
     }
   })();
+
 export const [OWNER, REPOSITORY] = setGit();
 
 export const ESLINT_OPTIONS = [
@@ -56,8 +57,8 @@ export const HOOKS: Array<Hooks> = [
   // },
 ];
 
-export const KEYS = Object.values(PACKAGE_JSON).flatMap((val) => Object.keys(val));
-export const FRAMEWORK_OPTIONS = ["svelte", "react", "vue"];
+const KEYS = Object.values(PACKAGE_JSON).flatMap((val) => Object.keys(val));
+const FRAMEWORK_OPTIONS = ["svelte", "react", "vue"];
 
 export const PRETTIER_FILE_CONTENT = `{
   "printWidth": 100
@@ -81,3 +82,29 @@ export const GITIGNORE_CONTENT = `
 export const PRETTIER_IGNORE = `
 node_modules/**
 `;
+
+export const FRAMEWORK = KEYS.find((element) => FRAMEWORK_OPTIONS.includes(element));
+
+const LANGUAGE = KEYS.find((element) => element === "typescript") ? "typescript" : "javascript";
+
+const setEslint = (): string => {
+  let eslint = "";
+  if (FRAMEWORK === undefined) {
+    const eslintLangConfig = ESLINT_OPTIONS.find(
+      (element) =>
+        element.includes(LANGUAGE) && !FRAMEWORK_OPTIONS.find((el) => element.includes(el))
+    );
+
+    if (eslintLangConfig) {
+      eslint = eslintLangConfig;
+    }
+  } else {
+    const eslintFrameworkConfig = ESLINT_OPTIONS.find((element) => element.includes(FRAMEWORK));
+    if (eslintFrameworkConfig) {
+      eslint = eslintFrameworkConfig;
+    }
+  }
+  return eslint;
+};
+
+export const ESLINT = setEslint();
