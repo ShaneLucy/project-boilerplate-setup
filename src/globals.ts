@@ -79,7 +79,7 @@ export const GITIGNORE_CONTENT = `
 .DS_Store
 `;
 
-export const PRETTIER_IGNORE = `
+export const PRETTIER_IGNORE_CONTENT = `
 node_modules/**
 `;
 

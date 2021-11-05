@@ -1,6 +1,13 @@
 import { existsSync } from "fs";
 import Exec from "./controllers/Exec";
-import { HOOKS, PRETTIER_FILE_CONTENT, eslintFileContents, ESLINT } from "./globals";
+import {
+  HOOKS,
+  PRETTIER_FILE_CONTENT,
+  PRETTIER_IGNORE_CONTENT,
+  eslintFileContents,
+  ESLINT,
+  ESLINT_IGNORE_CONTENT,
+} from "./globals";
 
 const initialiseGit = (): void => {
   if (!existsSync(".git")) {
@@ -8,11 +15,8 @@ const initialiseGit = (): void => {
   }
 };
 const configureEslint = (): void => {
-  if (ESLINT === undefined) {
-    throw new TypeError("Couldn't determine which eslint package to install");
-  }
-
   Exec.writeFile(".eslintrc.js", eslintFileContents(ESLINT));
+  Exec.writeFile(".eslintignore", eslintFileContents(ESLINT_IGNORE_CONTENT));
   Exec.run(`npm i -D ${ESLINT}`);
   Exec.run("npm set-script lint 'prettier --write . && eslint src/**'");
   Exec.run("npm set-script lint-fix 'prettier --write . && eslint src/** --fix'");
@@ -30,6 +34,7 @@ const configureGitHooks = (): void => {
 
 const configurePrettier = async (): Promise<void> => {
   Exec.writeFile(".prettierrc", PRETTIER_FILE_CONTENT);
+  Exec.writeFile(".prettierignore", PRETTIER_IGNORE_CONTENT);
 };
 
 const scaffoldProject = (): void => {
