@@ -1,6 +1,12 @@
+import { existsSync } from "fs";
 import Exec from "./controllers/Exec";
 import { HOOKS, PRETTIER_FILE_CONTENT, eslintFileContents, ESLINT } from "./globals";
 
+const initialiseGit = (): void => {
+  if (!existsSync(".git")) {
+    Exec.runSync("git init");
+  }
+};
 const configureEslint = (): void => {
   if (ESLINT === undefined) {
     throw new TypeError("Couldn't determine which eslint package to install");
@@ -27,6 +33,7 @@ const configurePrettier = async (): Promise<void> => {
 };
 
 const scaffoldProject = (): void => {
+  initialiseGit();
   configureEslint();
   configureGitHooks();
   configurePrettier();
