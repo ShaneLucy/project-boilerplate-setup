@@ -28,7 +28,6 @@ const configureGitHooks = (): void => {
 
   HOOKS.forEach((hook) => {
     Exec.runSync(`npx husky add .husky/${hook.name} "${hook.action}"`);
-    Exec.runSync(`git add .husky/${hook.name}`);
   });
 };
 
