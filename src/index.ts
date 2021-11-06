@@ -6,7 +6,7 @@ import {
   PRETTIER_IGNORE_CONTENT,
   ESLINT_IGNORE_CONTENT,
 } from "./globals";
-import { eslintFileContents, ESLINT } from "./controllers/eslint";
+import { setEslintFileContents, ESLINT } from "./controllers/eslint";
 
 const initialiseGit = (): void => {
   if (!existsSync(".git")) {
@@ -14,7 +14,7 @@ const initialiseGit = (): void => {
   }
 };
 const configureEslint = (): void => {
-  Exec.writeFile(".eslintrc.js", eslintFileContents(ESLINT));
+  Exec.writeFile(".eslintrc.js", setEslintFileContents(ESLINT));
   Exec.writeFile(".eslintignore", ESLINT_IGNORE_CONTENT);
   Exec.run(`npm i -D ${ESLINT}`);
   Exec.run("npm set-script lint 'prettier --write . && eslint src/**'");

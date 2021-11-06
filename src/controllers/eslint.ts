@@ -2,30 +2,38 @@ import Logger from "./Logger";
 import { FRAMEWORK } from "./framework";
 import { ESLINT_OPTIONS, FRAMEWORK_OPTIONS } from "../globals";
 
-export const setEslint = (): string => {
-  let eslint;
-  if (FRAMEWORK === undefined) {
-    eslint = ESLINT_OPTIONS.find(
-      (element) =>
-        element.includes("typescript") && !FRAMEWORK_OPTIONS.find((el) => element.includes(el))
-    );
-  }
+interface Args {
+  framework: string;
+  frameworkOptions: Array<string>;
+  eslintOptions: Array<string>;
+}
 
-  if (typeof FRAMEWORK === typeof "") {
-    eslint = ESLINT_OPTIONS.find((element) => element.includes(FRAMEWORK));
+export const setEslint = (args: Args): string => {
+  let eslint;
+
+  if (args.framework.length === 0) {
+    eslint = ESLINT_OPTIONS.find(
+      (element) => !FRAMEWORK_OPTIONS.find((el) => element.includes(el))
+    );
+  } else {
+    eslint = args.eslintOptions.find((element) => element.includes(args.framework));
   }
 
   if (eslint === undefined) {
     Logger.error("Couldn't determine which eslint package to use");
-    eslint = "";
+    eslint = "eslint-config-typescript-airbnb-prettier";
   }
 
   return eslint;
 };
 
-export const eslintFileContents = (eslint: string): string =>
+export const setEslintFileContents = (eslint: string): string =>
   `module.exports = {
     extends: "${eslint.split("eslint-config-")[1]}",
   };\n`;
 
-export const ESLINT = setEslint();
+export const ESLINT = setEslint({
+  framework: FRAMEWORK,
+  frameworkOptions: FRAMEWORK_OPTIONS,
+  eslintOptions: ESLINT_OPTIONS,
+});
