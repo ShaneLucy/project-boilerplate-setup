@@ -3,34 +3,38 @@ import Logger from "./controllers/Logger";
 import Exec from "./controllers/Exec";
 import type { PackageJson, Hooks } from "./types";
 
-const PACKAGE_JSON = (() => {
+const setPackageJson = (path: string): PackageJson => {
   try {
-    const packageJson: PackageJson = JSON.parse(readFileSync("./package.json").toString());
+    const packageJson: PackageJson = JSON.parse(readFileSync(path).toString());
     Logger.success("package.json parsed");
     return packageJson;
   } catch (e: any) {
     Logger.error(e);
     return {};
   }
-})();
+};
 
-const setGit = (): Array<string> | Array<boolean> =>
-  (() => {
-    try {
-      const REMOTE_URL = Exec.runSync("git config --get remote.origin.url").toString();
-      let response: Array<string> = [];
+const setPackageJsonKeys = (packageJson: PackageJson): Array<string> =>
+  Object.values(packageJson).flatMap((val) => Object.keys(val));
 
-      if (typeof REMOTE_URL === typeof "") {
-        const WORDS = REMOTE_URL.split(":");
-        response = [WORDS[1].split("/")[0], WORDS[1].split("/")[1].split(".")[0]];
-      }
+const PACKAGE_JSON_KEYS = setPackageJsonKeys(setPackageJson("./package.json"));
 
-      return response;
-    } catch (e) {
-      Logger.error(e);
-      return [false, false];
+const setGit = (): Array<string> | Array<boolean> => {
+  try {
+    const REMOTE_URL = Exec.runSync("git config --get remote.origin.url").toString();
+    let response: Array<string> = [];
+
+    if (typeof REMOTE_URL === typeof "") {
+      const WORDS = REMOTE_URL.split(":");
+      response = [WORDS[1].split("/")[0], WORDS[1].split("/")[1].split(".")[0]];
     }
-  })();
+
+    return response;
+  } catch (e) {
+    Logger.error(e);
+    return [false, false];
+  }
+};
 
 export const [OWNER, REPOSITORY] = setGit();
 
@@ -58,8 +62,6 @@ export const HOOKS: Array<Hooks> = [
   // },
 ];
 
-const KEYS = Object.values(PACKAGE_JSON).flatMap((val) => Object.keys(val));
-
 export const PRETTIER_FILE_CONTENT = `{
   "printWidth": 100
 }\n`;
@@ -84,8 +86,8 @@ export const setFramework = (keys: Array<string>): string | undefined =>
 export const setLanguage = (keys: Array<string>): string =>
   keys.find((element) => element === "typescript") ? "typescript" : "javascript";
 
-export const FRAMEWORK = setFramework(KEYS);
-const LANGUAGE = setLanguage(KEYS);
+export const FRAMEWORK = setFramework(PACKAGE_JSON_KEYS);
+const LANGUAGE = setLanguage(PACKAGE_JSON_KEYS);
 
 const setEslint = (): string => {
   let eslint = "";
