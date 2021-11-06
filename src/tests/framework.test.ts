@@ -1,6 +1,6 @@
 import { setFramework } from "../controllers/framework";
 
-describe("testing a svelte project is configured correctly", () => {
+describe("testing that the correct framework is determined from package.json", () => {
   test("correct framework is returned as svelte", () => {
     const PACKAGE_JSON_KEYS = ["svelte", "typescript", "lodash", "someotheramazingpackage", "etc"];
     expect(setFramework(PACKAGE_JSON_KEYS)).toEqual("svelte");
