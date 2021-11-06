@@ -7,7 +7,7 @@ export const setPackageJson = (path: string): PackageJson => {
     const packageJson: PackageJson = JSON.parse(readFileSync(path).toString());
     Logger.success("package.json parsed");
     return packageJson;
-  } catch (e: any) {
+  } catch (e) {
     Logger.error(e);
     return {};
   }

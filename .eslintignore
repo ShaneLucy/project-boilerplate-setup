@@ -1,3 +1,4 @@
 .eslintrc.js
 /frontend/
 /node_modules/
+invalid-package.json
