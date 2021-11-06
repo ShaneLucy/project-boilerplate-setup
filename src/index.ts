@@ -4,10 +4,9 @@ import {
   HOOKS,
   PRETTIER_FILE_CONTENT,
   PRETTIER_IGNORE_CONTENT,
-  eslintFileContents,
-  ESLINT,
   ESLINT_IGNORE_CONTENT,
 } from "./globals";
+import { eslintFileContents, ESLINT } from "./controllers/eslint";
 
 const initialiseGit = (): void => {
   if (!existsSync(".git")) {
@@ -16,7 +15,7 @@ const initialiseGit = (): void => {
 };
 const configureEslint = (): void => {
   Exec.writeFile(".eslintrc.js", eslintFileContents(ESLINT));
-  Exec.writeFile(".eslintignore", eslintFileContents(ESLINT_IGNORE_CONTENT));
+  Exec.writeFile(".eslintignore", ESLINT_IGNORE_CONTENT);
   Exec.run(`npm i -D ${ESLINT}`);
   Exec.run("npm set-script lint 'prettier --write . && eslint src/**'");
   Exec.run("npm set-script lint-fix 'prettier --write . && eslint src/** --fix'");
