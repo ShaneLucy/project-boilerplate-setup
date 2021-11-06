@@ -38,7 +38,7 @@ const setGit = (): Array<string> | Array<boolean> => {
 
 export const [OWNER, REPOSITORY] = setGit();
 
-export const ESLINT_OPTIONS = [
+const ESLINT_OPTIONS = [
   "eslint-config-typescript-airbnb-prettier-svelte",
   "eslint-config-typescript-airbnb-prettier",
   "eslint-config-airbnb-prettier-import",
@@ -90,22 +90,21 @@ export const FRAMEWORK = setFramework(PACKAGE_JSON_KEYS);
 const LANGUAGE = setLanguage(PACKAGE_JSON_KEYS);
 
 const setEslint = (): string => {
-  let eslint = "";
+  let eslint;
   if (FRAMEWORK === undefined) {
-    const eslintLangConfig = ESLINT_OPTIONS.find(
+    eslint = ESLINT_OPTIONS.find(
       (element) =>
         element.includes(LANGUAGE) && !FRAMEWORK_OPTIONS.find((el) => element.includes(el))
     );
-
-    if (eslintLangConfig) {
-      eslint = eslintLangConfig;
-    }
   } else {
-    const eslintFrameworkConfig = ESLINT_OPTIONS.find((element) => element.includes(FRAMEWORK));
-    if (eslintFrameworkConfig) {
-      eslint = eslintFrameworkConfig;
-    }
+    eslint = ESLINT_OPTIONS.find((element) => element.includes(FRAMEWORK));
   }
+
+  if (eslint === undefined) {
+    Logger.error("Couldn't determine which eslint package to use");
+    eslint = "";
+  }
+
   return eslint;
 };
 
