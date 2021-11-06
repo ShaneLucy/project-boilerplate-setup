@@ -1,13 +1,14 @@
 import Logger from "./Logger";
 import Exec from "./Exec";
 
-export default (): Array<string> | Array<boolean> => {
+const getRemote = (): string => Exec.runSync("git config --get remote.origin.url").toString();
+
+export const setRemote = (url: string): Array<string> | Array<boolean> => {
   try {
-    const REMOTE_URL = Exec.runSync("git config --get remote.origin.url").toString();
     let response: Array<string> = [];
 
-    if (typeof REMOTE_URL === typeof "") {
-      const WORDS = REMOTE_URL.split(":");
+    if (typeof url === typeof "") {
+      const WORDS = url.split(":");
       response = [WORDS[1].split("/")[0], WORDS[1].split("/")[1].split(".")[0]];
     }
 
@@ -17,3 +18,5 @@ export default (): Array<string> | Array<boolean> => {
     return [false, false];
   }
 };
+
+export const [OWNER, REPOSITORY] = setRemote(getRemote());
