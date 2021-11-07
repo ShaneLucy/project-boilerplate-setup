@@ -179,17 +179,16 @@ export const SHIELD_URLS: Array<Shield> = [
 ];
 
 export const FRONT_END_TODOS = [
-  "\nLink project with uptime",
-  "\nSet URL for:\n - W3c Validator Badge\n - Security Headers Badge\n - Observatory Badge",
+  "\n - Link project with uptime",
+  "\n - Set URL for:\n - W3c Validator Badge\n - Security Headers Badge\n - Observatory Badge",
 ];
 
 export const TODOS = [
-  "\nLink project with sonarcloud",
-  "\nLink project with coveralls",
-  "\nLink project with libraries.io",
-  "\nLink project with snyk",
-
-  "\nLink project with codefactor",
+  "\n - Link project with sonarcloud",
+  "\n - Link project with coveralls",
+  "\n - Link project with libraries.io",
+  "\n - Link project with snyk",
+  "\n - Link project with codefactor",
 ];
 
 export const README_CONTENT = `# Project Title
