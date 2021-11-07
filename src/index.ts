@@ -7,8 +7,10 @@ import {
   ESLINT_IGNORE_CONTENT,
   GITHUB_ACTIONS,
   setEslintFileContents,
+  README_CONTENT,
 } from "./globals";
 import { ESLINT } from "./controllers/eslint";
+import { SHIELDS } from "./controllers/shields";
 
 const initialiseGit = (): void => {
   if (!existsSync(".git")) {
@@ -40,9 +42,18 @@ const configureGitHooks = (): void => {
   });
 };
 
-const configurePrettier = async (): Promise<void> => {
+const configurePrettier = (): void => {
   Exec.writeFile(".prettierrc", PRETTIER_FILE_CONTENT);
   Exec.writeFile(".prettierignore", PRETTIER_IGNORE_CONTENT);
+};
+
+const configureReadme = (): void => {
+  let readme: string = "";
+  for (let index = 0; index < SHIELDS.length; index += 1) {
+    readme = readme.concat(SHIELDS[index]);
+  }
+  readme = readme.concat(README_CONTENT);
+  Exec.writeFile("README.md", readme);
 };
 
 const scaffoldProject = (): void => {
@@ -51,6 +62,7 @@ const scaffoldProject = (): void => {
   configureEslint();
   configureGitHooks();
   configurePrettier();
+  configureReadme();
 };
 
 scaffoldProject();

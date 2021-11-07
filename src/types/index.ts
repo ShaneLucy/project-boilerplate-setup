@@ -60,3 +60,8 @@ export interface GithubActions {
   name: string;
   action: string;
 }
+
+export interface Shield {
+  name: string;
+  url: string;
+}
