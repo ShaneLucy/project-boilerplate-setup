@@ -179,17 +179,16 @@ export const SHIELD_URLS: Array<Shield> = [
 ];
 
 export const FRONT_END_TODOS = [
-  "\nLink project with uptime",
-  "\nSet URL for:\n - W3c Validator Badge\n - Security Headers Badge\n - Observatory Badge",
+  "\n- Link project with uptime",
+  "\n- Set URL for:\n - W3c Validator Badge\n - Security Headers Badge\n - Observatory Badge",
 ];
 
 export const TODOS = [
-  "\nLink project with sonarcloud",
-  "\nLink project with coveralls",
-  "\nLink project with libraries.io",
-  "\nLink project with snyk",
-
-  "\nLink project with codefactor",
+  "\n- Link project with https://sonarcloud.io/",
+  "\n- Link project with https://coveralls.io/",
+  "\n- Link project with https://libraries.io/",
+  "\n- Link project with https://snyk.io/",
+  "\n- Link project with https://www.codefactor.io/",
 ];
 
 export const README_CONTENT = `# Project Title
@@ -204,25 +203,25 @@ An in-depth paragraph about your project and overview of use.
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+- Describe any prerequisites, libraries, OS version, etc., needed before installing program.
+- ex. Windows 10
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+- How/where to download your program
+- Any modifications needed to be made to files/folders
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
+- How to run the program
+- Step-by-step bullets\n
 \`\`\`
 code blocks for commands
 \`\`\`
 
 ## Help
 
-Any advise for common problems or issues.
+Any advise for common problems or issues.\n
 \`\`\`
 command to run if program contains helper info
 \`\`\`
@@ -236,11 +235,11 @@ ex. [@DomPizzie](https://twitter.com/dompizzie)
 
 ## Version History
 
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
+- 0.2
+  - Various bug fixes and optimizations
+  - See [commit change]() or See [release history]()
+- 0.1
+  - Initial Release
 
 ## License
 

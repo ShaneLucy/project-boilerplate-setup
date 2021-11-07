@@ -11,6 +11,7 @@ import {
 } from "./globals";
 import { ESLINT } from "./controllers/eslint";
 import { SHIELDS } from "./controllers/shields";
+import PROJECT_TODOS from "./controllers/todos";
 
 const initialiseGit = (): void => {
   if (!existsSync(".git")) {
@@ -52,7 +53,8 @@ const configureReadme = (): void => {
   for (let index = 0; index < SHIELDS.length; index += 1) {
     readme = readme.concat(SHIELDS[index]);
   }
-  readme = readme.concat(`\n${README_CONTENT}`);
+
+  readme = readme.concat(`\n\n# TODO\n${PROJECT_TODOS}\n\n${README_CONTENT}`);
   Exec.writeFile("README.md", readme);
 };
 
