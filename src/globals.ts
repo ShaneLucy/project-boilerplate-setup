@@ -8,7 +8,7 @@ export const FRAMEWORK_OPTIONS = ["svelte", "react", "vue"];
 
 export const setGithubShieldUrl = (owner: string, repository: string, file: string): Shield => ({
   name: file,
-  url: `https://github.com/${owner}/${repository}/actions/workflows/${file}/badge.svg`,
+  url: `https://github.com/${owner}/${repository}/actions/workflows/${file}.yml/badge.svg`,
 });
 
 export const HOOKS: Array<Hooks> = [
