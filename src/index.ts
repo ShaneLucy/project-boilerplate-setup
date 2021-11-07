@@ -54,7 +54,7 @@ const configureReadme = (): void => {
     readme = readme.concat(SHIELDS[index]);
   }
 
-  readme = readme.concat(`\n # TODO \n ${PROJECT_TODOS}\n${README_CONTENT}`);
+  readme = readme.concat(`\n\n# TODO\n${PROJECT_TODOS}\n\n${README_CONTENT}`);
   Exec.writeFile("README.md", readme);
 };
 
