@@ -9,7 +9,7 @@ describe("testing git methods", () => {
 
   test("if remote can't be detected owner and repository should be false", () => {
     const [OWNER, REPOSITORY] = setRemote("");
-    expect(OWNER).toEqual(false);
-    expect(REPOSITORY).toEqual(false);
+    expect(OWNER).toEqual("<OWNER>");
+    expect(REPOSITORY).toEqual("<REPOSITORY>");
   });
 });

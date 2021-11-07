@@ -3,7 +3,7 @@ import Exec from "./Exec";
 
 const getRemote = (): string => Exec.runSync("git config --get remote.origin.url").toString();
 
-export const setRemote = (url: string): Array<string> | Array<boolean> => {
+export const setRemote = (url: string): Array<string> => {
   try {
     let response: Array<string> = [];
 
@@ -15,7 +15,7 @@ export const setRemote = (url: string): Array<string> | Array<boolean> => {
     return response;
   } catch (e) {
     Logger.error(e);
-    return [false, false];
+    return ["<OWNER>", "<REPOSITORY>"];
   }
 };
 
