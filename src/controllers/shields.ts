@@ -33,6 +33,6 @@ const configureShieldUrls = (): Array<Shield> => {
 };
 
 const setShields = (): Array<string> =>
-  configureShieldUrls().map((shield) => `[[${shield.name}](${shield.url})](${shield.url})`);
+  configureShieldUrls().map((shield) => `[![${shield.name}](${shield.url})](${shield.url})`);
 
 export const SHIELDS = setShields();
