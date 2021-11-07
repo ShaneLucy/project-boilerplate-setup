@@ -53,8 +53,8 @@ const configureReadme = (): void => {
   for (let index = 0; index < SHIELDS.length; index += 1) {
     readme = readme.concat(SHIELDS[index]);
   }
-  readme = readme.concat(`\n ${PROJECT_TODOS}`);
-  readme = readme.concat(`\n${README_CONTENT}`);
+
+  readme = readme.concat(`\n # TODO \n ${PROJECT_TODOS}\n${README_CONTENT}`);
   Exec.writeFile("README.md", readme);
 };
 
