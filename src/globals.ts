@@ -131,43 +131,68 @@ jobs:
 export const FRONT_END_SHIELD_URLS: Array<Shield> = [
   {
     name: "W3C Markup Validation score",
-    url:
-      "https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fsolar-system.pages.dev%2F",
+    url: "https://img.shields.io/w3c-validation/default?targetUrl=WEBSITEURL",
   },
   {
     name: "Security headers",
-    url: "https://img.shields.io/security-headers?url=https%3A%2F%2Fsolar-system.pages.dev",
+    url: "https://img.shields.io/security-headers?url=WEBSITEURL",
   },
   {
     name: "Mozilla Observatory Score",
-    url: "https://img.shields.io/mozilla-observatory/grade-score/solar-system.pages.dev",
+    url:
+      "https://img.shields.io/mozilla-observatory/grade-score/WEBSITEURL?logo=mozilla&logoWidth=20",
   },
   {
     name: "Uptime Percentage last 30 days",
     url: "https://img.shields.io/uptimerobot/ratio/:monitorSpecificKey",
   },
-  { name: "Uptime status", url: "https://img.shields.io/uptimerobot/status/:monitorSpecificKey" },
+  {
+    name: "Uptime status",
+    url: "https://img.shields.io/uptimerobot/status/:monitorSpecificKey",
+  },
 ];
 
 export const SHIELD_URLS: Array<Shield> = [
-  { name: "Code Issues", url: "https://img.shields.io/codeclimate/issues/:owner/:repo" },
-  { name: "Tech Debt", url: "https://img.shields.io/codeclimate/tech-debt/:owner/:repo" },
+  {
+    name: "Code Issues",
+    url: "https://img.shields.io/codeclimate/issues/:owner/:repo?logo=codeclimate&logoWidth=20",
+  },
+  {
+    name: "Tech Debt",
+    url: "https://img.shields.io/codeclimate/tech-debt/:owner/:repo?logo=codeclimate&logoWidth=20",
+  },
   {
     name: "Code Quality",
-    url: "https://img.shields.io/codefactor/grade/github/:owner/:repo/master",
+    url:
+      "https://img.shields.io/codefactor/grade/github/:owner/:repo/master?logo=codefactor&logoWidth=20",
   },
   {
     name: "Vulnerabilities",
-    url: "https://img.shields.io/snyk/vulnerabilities/github/:owner/:repo",
+    url: "https://img.shields.io/snyk/vulnerabilities/github/:owner/:repo?logo=snyk&logoWidth=20",
   },
-  { name: "Dependency Status", url: "https://img.shields.io/librariesio/github/:owner/:repo" },
-  { name: "Code Size", url: "https://img.shields.io/github/languages/code-size/:owner/:repo" },
-  { name: "Repo Size", url: "https://img.shields.io/github/repo-size/:owner/:repo" },
-  { name: "Issues", url: "https://img.shields.io/github/issues-raw/:owner/:repo" },
-  { name: "Last Commit", url: "https://img.shields.io/github/last-commit/:owner/:repo" },
+  {
+    name: "Dependency Status",
+    url: "https://img.shields.io/librariesio/github/:owner/:repo?logo=libraries.io&logoWidth=20",
+  },
+  {
+    name: "Code Size",
+    url: "https://img.shields.io/github/languages/code-size/:owner/:repo?logo=github&logoWidth=20",
+  },
+  {
+    name: "Repo Size",
+    url: "https://img.shields.io/github/repo-size/:owner/:repo?logo=github&logoWidth=20",
+  },
+  {
+    name: "Issues",
+    url: "https://img.shields.io/github/issues-raw/:owner/:repo?logo=github&logoWidth=20",
+  },
+  {
+    name: "Last Commit",
+    url: "https://img.shields.io/github/last-commit/:owner/:repo?logo=github&logoWidth=20",
+  },
   {
     name: "Test Coverage",
-    url: "https://coveralls.io/repos/github/:owner/:repo/badge.svg?branch=master",
+    url: "https://img.shields.io/coveralls/github/:owner/:repo?logo=coveralls&logoWidth=20",
   },
   {
     name: "Sonar Cloud Quality Gate",
@@ -177,8 +202,8 @@ export const SHIELD_URLS: Array<Shield> = [
 ];
 
 export const FRONT_END_TODOS = [
-  "\n- Link project with uptime",
-  "\n- Set URL for:\n - W3c Validator Badge\n - Security Headers Badge\n - Observatory Badge",
+  "\n- Link project with https://uptimerobot.com/",
+  "\n\n Set URL for:\n - W3c Validator Badge\n - Security Headers Badge\n - Observatory Badge",
 ];
 
 export const TODOS = [
