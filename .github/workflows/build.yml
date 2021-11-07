@@ -1,10 +1,10 @@
-name: lint & test
+name: build
 
 on:
-  push:
+  pull_request:
 
 jobs:
-  lint-test:
+  build:
     runs-on: macos-latest
 
     steps:
@@ -18,7 +18,5 @@ jobs:
         run: npm install -g npm@latest
       - name: Install dependencies
         run: npm i
-      - name: Lint
-        run: npm run lint
-      - name: Run tests
-        run: npm run test
+      - name: Build
+        run: npm run build

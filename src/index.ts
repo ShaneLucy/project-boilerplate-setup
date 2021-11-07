@@ -5,7 +5,7 @@ import {
   PRETTIER_FILE_CONTENT,
   PRETTIER_IGNORE_CONTENT,
   ESLINT_IGNORE_CONTENT,
-  LINT_TEST_ACTION_CONTENT,
+  GITHUB_ACTIONS,
   setEslintFileContents,
 } from "./globals";
 import { ESLINT } from "./controllers/eslint";
@@ -18,7 +18,9 @@ const initialiseGit = (): void => {
 
 const configureGithubActions = (): void => {
   Exec.mkdir("/.github/workflows");
-  Exec.writeFile(".github/workflows/lint-test.yml", LINT_TEST_ACTION_CONTENT);
+  GITHUB_ACTIONS.forEach((action) => {
+    Exec.writeFile(`.github/workflows/${action.name}.yml`, action.action);
+  });
 };
 
 const configureEslint = (): void => {

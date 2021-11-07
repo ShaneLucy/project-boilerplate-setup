@@ -55,3 +55,8 @@ export interface Hooks {
   name: string;
   action: string;
 }
+
+export interface GithubActions {
+  name: string;
+  action: string;
+}

@@ -1,4 +1,4 @@
-import type { Hooks } from "./types";
+import type { Hooks, GithubActions } from "./types";
 
 export const ESLINT_OPTIONS = [
   "eslint-config-typescript-airbnb-prettier-svelte",
@@ -6,7 +6,8 @@ export const ESLINT_OPTIONS = [
 ];
 export const FRAMEWORK_OPTIONS = ["svelte", "react", "vue"];
 
-export const BASE_GITHUB_BADGE_URL = `https://github.com/<OWNER>/<REPOSITORY>/actions/workflows/<WORKFLOW_FILE>/badge.svg`;
+export const setGithubBadgeUrl = (owner: string, repository: string, file: string): string =>
+  `https://github.com/${owner}/${repository}/actions/workflows/${file}/badge.svg`;
 
 export const HOOKS: Array<Hooks> = [
   {
@@ -37,13 +38,16 @@ export const setEslintFileContents = (eslint: string): string => `module.exports
   extends: "${eslint.split("eslint-config-")[1]}",
 };\n`;
 
-export const LINT_TEST_ACTION_CONTENT = `name: lint & test
+export const GITHUB_ACTIONS: Array<GithubActions> = [
+  {
+    name: "lint-test",
+    action: `name: lint & test
 
 on:
   push:
 
 jobs:
-  lint:
+  lint-test:
     runs-on: macos-latest
 
     steps:
@@ -61,4 +65,32 @@ jobs:
         run: npm run lint
       - name: Run tests
         run: npm run test
-`;
+`,
+  },
+  {
+    name: "build",
+    action: `name: build
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v2
+      - name: Setup NodeJs
+        uses: actions/setup-node@v2
+        with:
+          node-version: "lts/*"
+      - name: Update npm
+        run: npm install -g npm@latest
+      - name: Install dependencies
+        run: npm i
+      - name: Build
+        run: npm run build
+`,
+  },
+];
