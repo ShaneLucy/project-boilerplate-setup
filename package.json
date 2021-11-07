@@ -7,7 +7,8 @@
     "prepare": "husky install",
     "lint": "prettier --write . && eslint src/**",
     "lint-fix": "prettier --write . && eslint src/** --fix",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
