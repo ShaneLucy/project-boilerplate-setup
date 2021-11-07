@@ -149,8 +149,6 @@ export const FRONT_END_SHIELD_URLS: Array<Shield> = [
   { name: "Uptime status", url: "https://img.shields.io/uptimerobot/status/:monitorSpecificKey" },
 ];
 
-// if project is front-end also add a todo to link project with uptime
-
 export const SHIELD_URLS: Array<Shield> = [
   { name: "Code Issues", url: "https://img.shields.io/codeclimate/issues/:owner/:repo" },
   { name: "Tech Debt", url: "https://img.shields.io/codeclimate/tech-debt/:owner/:repo" },
