@@ -1,5 +1,6 @@
 import { exec, execSync } from "child_process";
 import { writeFile } from "fs/promises";
+import { mkdirSync } from "fs";
 
 import Logger from "./Logger";
 
@@ -38,6 +39,16 @@ export default class Exec {
     try {
       await writeFile(file, content);
       Logger.success(`${file} configured`);
+    } catch (error) {
+      Logger.error(error);
+    }
+  }
+
+  static mkdir(path: string) {
+    Logger.info(`Creating Directory ${path}`);
+    try {
+      mkdirSync(`${process.cwd()}${path}`, { recursive: true });
+      Logger.success(`${path} created`);
     } catch (error) {
       Logger.error(error);
     }

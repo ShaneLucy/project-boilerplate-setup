@@ -5,14 +5,22 @@ import {
   PRETTIER_FILE_CONTENT,
   PRETTIER_IGNORE_CONTENT,
   ESLINT_IGNORE_CONTENT,
+  LINT_TEST_ACTION_CONTENT,
+  setEslintFileContents,
 } from "./globals";
-import { setEslintFileContents, ESLINT } from "./controllers/eslint";
+import { ESLINT } from "./controllers/eslint";
 
 const initialiseGit = (): void => {
   if (!existsSync(".git")) {
     Exec.runSync("git init");
   }
 };
+
+const configureGithubActions = (): void => {
+  Exec.mkdir("/.github/workflows");
+  Exec.writeFile(".github/workflows/lint-test.yml", LINT_TEST_ACTION_CONTENT);
+};
+
 const configureEslint = (): void => {
   Exec.writeFile(".eslintrc.js", setEslintFileContents(ESLINT));
   Exec.writeFile(".eslintignore", ESLINT_IGNORE_CONTENT);
@@ -37,6 +45,7 @@ const configurePrettier = async (): Promise<void> => {
 
 const scaffoldProject = (): void => {
   initialiseGit();
+  configureGithubActions();
   configureEslint();
   configureGitHooks();
   configurePrettier();
