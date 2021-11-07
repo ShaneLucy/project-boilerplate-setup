@@ -49,7 +49,7 @@ const configurePrettier = (): void => {
 };
 
 const configureReadme = (): void => {
-  let readme: string = "";
+  let readme = "";
   for (let index = 0; index < SHIELDS.length; index += 1) {
     readme = readme.concat(SHIELDS[index]);
   }
