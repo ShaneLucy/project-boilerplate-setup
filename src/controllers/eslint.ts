@@ -27,11 +27,6 @@ export const setEslint = (args: Args): string => {
   return eslint;
 };
 
-export const setEslintFileContents = (eslint: string): string =>
-  `module.exports = {
-    extends: "${eslint.split("eslint-config-")[1]}",
-  };\n`;
-
 export const ESLINT = setEslint({
   framework: FRAMEWORK,
   frameworkOptions: FRAMEWORK_OPTIONS,

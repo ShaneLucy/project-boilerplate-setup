@@ -27,11 +27,12 @@ export const PRETTIER_FILE_CONTENT = `{
   "printWidth": 100
 }\n`;
 
-export const ESLINT_IGNORE_CONTENT = `
-.eslintrc.js
+export const ESLINT_IGNORE_CONTENT = `.eslintrc.js
 node_modules/**
 `;
 
-export const PRETTIER_IGNORE_CONTENT = `
-node_modules/**
-`;
+export const PRETTIER_IGNORE_CONTENT = `node_modules/**`;
+
+export const setEslintFileContents = (eslint: string): string => `module.exports = {
+  extends: "${eslint.split("eslint-config-")[1]}",
+};\n`;

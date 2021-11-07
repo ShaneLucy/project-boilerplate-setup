@@ -1,4 +1,5 @@
-import { setEslint, setEslintFileContents } from "../controllers/eslint";
+import { setEslint } from "../controllers/eslint";
+import { setEslintFileContents } from "../globals";
 
 describe("testing correct eslint package is determined", () => {
   const FRAMEWORK_OPTIONS = ["svelte", "vue", "react"];
@@ -49,10 +50,10 @@ describe("testing correct eslint package is determined", () => {
 });
 
 describe("testing correct .eslintrc.js file contents are generated", () => {
-  test("defaults to base typescript config if framework options and eslint options are empty", () => {
+  test(".eslintrc.js has the correct contents", () => {
     const EXPECTED_OUTCOME = `module.exports = {
-    extends: "typescript-airbnb-prettier",
-  };\n`;
+  extends: "typescript-airbnb-prettier",
+};\n`;
 
     expect(setEslintFileContents("eslint-config-typescript-airbnb-prettier")).toEqual(
       EXPECTED_OUTCOME
