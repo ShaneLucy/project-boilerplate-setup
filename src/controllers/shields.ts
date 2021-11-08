@@ -18,7 +18,7 @@ const setGithubShieldUrls = (): Array<Shield> =>
   GITHUB_ACTIONS.map((action) => setGithubShieldUrl(OWNER, REPOSITORY, action.name));
 
 const configureShieldUrls = (): Array<Shield> => {
-  const configuredUrls = setProjectShieldsBaseUrls().flatMap(
+  const CONFIGURED_URLS = setProjectShieldsBaseUrls().flatMap(
     (shield): Shield => {
       let url = shield.url.replace(":owner", OWNER);
       url = url.replace(":repo", REPOSITORY);
@@ -29,10 +29,16 @@ const configureShieldUrls = (): Array<Shield> => {
     }
   );
 
-  return [...setGithubShieldUrls(), ...configuredUrls];
+  return [...setGithubShieldUrls(), ...CONFIGURED_URLS];
 };
 
-const setShields = (): Array<string> =>
-  configureShieldUrls().map((shield) => `[![${shield.name}](${shield.url})](${shield.url}) `);
+const setShields = (): Array<string> => {
+  const CONFIGURED_URLS = configureShieldUrls();
+  return CONFIGURED_URLS.map((shield, index) =>
+    index === CONFIGURED_URLS.length - 1
+      ? `[![${shield.name}](${shield.url})](${shield.url})`
+      : `[![${shield.name}](${shield.url})](${shield.url}) `
+  );
+};
 
 export const SHIELDS = setShields();
