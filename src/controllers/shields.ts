@@ -1,44 +1,69 @@
-import { GITHUB_ACTIONS, setGithubShieldUrl, SHIELD_URLS, FRONT_END_SHIELD_URLS } from "../globals";
+import { GITHUB_ACTIONS, SHIELDS, FRONT_END_SHIELDS } from "../globals";
 import { FRAMEWORK } from "./framework";
 import { OWNER, REPOSITORY } from "./git";
-import type { Shield } from "../types";
+import type { GithubActions, Shield } from "../types";
 
-export const setProjectShieldsBaseUrls = (): Array<Shield> => {
+interface BaseUrlArgs {
+  framework: string;
+  shields: Array<Shield>;
+  frontEndShields: Array<Shield>;
+  owner: string;
+  repository: string;
+}
+
+export const setOtherShields = (args: BaseUrlArgs): Array<Shield> => {
   let shields: Array<Shield> = [];
-  if (FRAMEWORK.length === 0) {
-    shields = SHIELD_URLS;
+  if (args.framework.length === 0) {
+    shields = args.shields;
   } else {
-    shields = [...SHIELD_URLS, ...FRONT_END_SHIELD_URLS];
+    shields = [...args.shields, ...args.frontEndShields];
   }
+
+  shields = shields.map((shield) => ({
+    name: shield.name,
+    url: shield.url.replace("<OWNER>", args.owner),
+  }));
+
+  shields = shields.map((shield) => ({
+    name: shield.name,
+    url: shield.url.replace("<REPOSITORY>", args.repository),
+  }));
 
   return shields;
 };
 
-const setGithubShieldUrls = (): Array<Shield> =>
-  GITHUB_ACTIONS.map((action) => setGithubShieldUrl(OWNER, REPOSITORY, action.name));
+interface GithubShieldArgs {
+  githubActions: Array<GithubActions>;
+  owner: string;
+  repository: string;
+}
 
-const configureShieldUrls = (): Array<Shield> => {
-  const CONFIGURED_URLS = setProjectShieldsBaseUrls().flatMap(
-    (shield): Shield => {
-      let url = shield.url.replace("<OWNER>", OWNER);
-      url = url.replace("<REPOSITORY>", REPOSITORY);
-      return {
-        name: shield.name,
-        url,
-      };
-    }
-  );
+export const setGithubShieldUrl = (owner: string, repository: string, file: string): Shield => ({
+  name: file,
+  url: `https://github.com/${owner}/${repository}/actions/workflows/${file}.yml/badge.svg`,
+});
 
-  return [...setGithubShieldUrls(), ...CONFIGURED_URLS];
-};
+export const setGithubShields = (args: GithubShieldArgs): Array<Shield> =>
+  args.githubActions.map((action) => setGithubShieldUrl(args.owner, args.repository, action.name));
 
-const setShields = (): Array<string> => {
-  const CONFIGURED_URLS = configureShieldUrls();
-  return CONFIGURED_URLS.map((shield, index) =>
-    index === CONFIGURED_URLS.length - 1
+export const generateMarkdownForShields = (configuredShields: Array<Shield>): Array<string> =>
+  configuredShields.map((shield, index) =>
+    index === configuredShields.length - 1
       ? `[![${shield.name}](${shield.url})](${shield.url})`
       : `[![${shield.name}](${shield.url})](${shield.url}) `
   );
-};
+const OTHER_SHIELDS = setOtherShields({
+  framework: FRAMEWORK,
+  shields: SHIELDS,
+  frontEndShields: FRONT_END_SHIELDS,
+  owner: OWNER,
+  repository: REPOSITORY,
+});
 
-export const SHIELDS = setShields();
+const GITHUB_SHIELDS = setGithubShields({
+  githubActions: GITHUB_ACTIONS,
+  owner: OWNER,
+  repository: REPOSITORY,
+});
+
+export const PROJECT_SHIELDS = generateMarkdownForShields([...GITHUB_SHIELDS, ...OTHER_SHIELDS]);

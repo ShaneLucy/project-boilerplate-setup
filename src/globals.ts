@@ -6,11 +6,6 @@ export const ESLINT_OPTIONS = [
 ];
 export const FRAMEWORK_OPTIONS = ["svelte", "react", "vue"];
 
-export const setGithubShieldUrl = (owner: string, repository: string, file: string): Shield => ({
-  name: file,
-  url: `https://github.com/${owner}/${repository}/actions/workflows/${file}.yml/badge.svg`,
-});
-
 export const HOOKS: Array<Hooks> = [
   {
     name: "pre-commit",
@@ -43,6 +38,7 @@ export const GITHUB_ACTIONS: Array<GithubActions> = [
 
 on:
   push:
+  pull_request:
 
 jobs:
   lint-test:
@@ -124,7 +120,7 @@ jobs:
   },
 ];
 
-export const FRONT_END_SHIELD_URLS: Array<Shield> = [
+export const FRONT_END_SHIELDS: Array<Shield> = [
   {
     name: "W3C Markup Validation score",
     url: "https://img.shields.io/w3c-validation/default?targetUrl=WEBSITEURL",
@@ -148,7 +144,7 @@ export const FRONT_END_SHIELD_URLS: Array<Shield> = [
   },
 ];
 
-export const SHIELD_URLS: Array<Shield> = [
+export const SHIELDS: Array<Shield> = [
   {
     name: "Code Issues",
     url:

@@ -10,7 +10,7 @@ import {
   README_CONTENT,
 } from "./globals";
 import { ESLINT } from "./controllers/eslint";
-import { SHIELDS } from "./controllers/shields";
+import { PROJECT_SHIELDS } from "./controllers/shields";
 import { PROJECT_TODOS } from "./controllers/todos";
 
 const initialiseGit = (): void => {
@@ -50,8 +50,8 @@ const configurePrettier = (): void => {
 
 const configureReadme = (): void => {
   let readme = "";
-  for (let index = 0; index < SHIELDS.length; index += 1) {
-    readme = readme.concat(SHIELDS[index]);
+  for (let index = 0; index < PROJECT_SHIELDS.length; index += 1) {
+    readme = readme.concat(PROJECT_SHIELDS[index]);
   }
 
   readme = readme.concat(`\n\n# TODO\n${PROJECT_TODOS}\n\n${README_CONTENT}`);
