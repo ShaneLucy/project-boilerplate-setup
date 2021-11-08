@@ -245,13 +245,6 @@ Any advise for common problems or issues.\n
 command to run if program contains helper info
 \`\`\`
 
-## Authors
-
-Contributors names and contact info
-
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
-
 ## Version History
 
 - 0.2
