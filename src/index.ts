@@ -11,7 +11,7 @@ import {
 } from "./globals";
 import { ESLINT } from "./controllers/eslint";
 import { SHIELDS } from "./controllers/shields";
-import PROJECT_TODOS from "./controllers/todos";
+import { PROJECT_TODOS } from "./controllers/todos";
 
 const initialiseGit = (): void => {
   if (!existsSync(".git")) {

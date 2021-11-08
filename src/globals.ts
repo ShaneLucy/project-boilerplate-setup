@@ -151,49 +151,54 @@ export const FRONT_END_SHIELD_URLS: Array<Shield> = [
 export const SHIELD_URLS: Array<Shield> = [
   {
     name: "Code Issues",
-    url: "https://img.shields.io/codeclimate/issues/:owner/:repo?logo=codeclimate&logoWidth=20",
+    url:
+      "https://img.shields.io/codeclimate/issues/<OWNER>/<REPOSITORY>?logo=codeclimate&logoWidth=20",
   },
   {
     name: "Tech Debt",
-    url: "https://img.shields.io/codeclimate/tech-debt/:owner/:repo?logo=codeclimate&logoWidth=20",
+    url:
+      "https://img.shields.io/codeclimate/tech-debt/<OWNER>/<REPOSITORY>?logo=codeclimate&logoWidth=20",
   },
   {
     name: "Code Quality",
     url:
-      "https://img.shields.io/codefactor/grade/github/:owner/:repo/master?logo=codefactor&logoWidth=20",
+      "https://img.shields.io/codefactor/grade/github/<OWNER>/<REPOSITORY>/master?logo=codefactor&logoWidth=20",
   },
   {
     name: "Vulnerabilities",
-    url: "https://img.shields.io/snyk/vulnerabilities/github/:owner/:repo?logo=snyk&logoWidth=20",
+    url:
+      "https://img.shields.io/snyk/vulnerabilities/github/<OWNER>/<REPOSITORY>?logo=snyk&logoWidth=20",
   },
   {
     name: "Dependency Status",
-    url: "https://img.shields.io/librariesio/github/:owner/:repo?logo=libraries.io&logoWidth=20",
+    url:
+      "https://img.shields.io/librariesio/github/<OWNER>/<REPOSITORY>?logo=libraries.io&logoWidth=20",
   },
   {
     name: "Code Size",
-    url: "https://img.shields.io/github/languages/code-size/:owner/:repo?logo=github&logoWidth=20",
+    url:
+      "https://img.shields.io/github/languages/code-size/<OWNER>/<REPOSITORY>?logo=github&logoWidth=20",
   },
   {
     name: "Repo Size",
-    url: "https://img.shields.io/github/repo-size/:owner/:repo?logo=github&logoWidth=20",
+    url: "https://img.shields.io/github/repo-size/<OWNER>/<REPOSITORY>?logo=github&logoWidth=20",
   },
   {
     name: "Issues",
-    url: "https://img.shields.io/github/issues-raw/:owner/:repo?logo=github&logoWidth=20",
+    url: "https://img.shields.io/github/issues-raw/<OWNER>/<REPOSITORY>?logo=github&logoWidth=20",
   },
   {
     name: "Last Commit",
-    url: "https://img.shields.io/github/last-commit/:owner/:repo?logo=github&logoWidth=20",
+    url: "https://img.shields.io/github/last-commit/<OWNER>/<REPOSITORY>?logo=github&logoWidth=20",
   },
   {
     name: "Test Coverage",
-    url: "https://img.shields.io/coveralls/github/:owner/:repo?logo=coveralls&logoWidth=20",
+    url: "https://img.shields.io/coveralls/github/<OWNER>/<REPOSITORY>?logo=coveralls&logoWidth=20",
   },
   {
     name: "Sonar Cloud Quality Gate",
     url:
-      "https://sonarcloud.io/api/project_badges/measure?project=:owner_:repo&metric=alert_status",
+      "https://sonarcloud.io/api/project_badges/measure?project=<OWNER>_<REPOSITORY>&metric=alert_status",
   },
 ];
 

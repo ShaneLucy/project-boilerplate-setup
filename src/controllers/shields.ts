@@ -20,8 +20,8 @@ const setGithubShieldUrls = (): Array<Shield> =>
 const configureShieldUrls = (): Array<Shield> => {
   const CONFIGURED_URLS = setProjectShieldsBaseUrls().flatMap(
     (shield): Shield => {
-      let url = shield.url.replace(":owner", OWNER);
-      url = url.replace(":repo", REPOSITORY);
+      let url = shield.url.replace("<OWNER>", OWNER);
+      url = url.replace("<REPOSITORY>", REPOSITORY);
       return {
         name: shield.name,
         url,
