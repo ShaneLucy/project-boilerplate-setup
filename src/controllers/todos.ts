@@ -2,23 +2,37 @@ import { TODOS, FRONT_END_TODOS } from "../globals";
 import { FRAMEWORK } from "./framework";
 import { OWNER, REPOSITORY } from "./git";
 
-const setProjectTodos = (): Array<string> => {
+interface Args {
+  framework: string;
+  todos: Array<string>;
+  frontEndTodos: Array<string>;
+  owner: string;
+  repository: string;
+}
+
+export const setProjectTodos = (args: Args): Array<string> => {
   let todos: Array<string> = [];
-  if (FRAMEWORK.length === 0) {
-    todos = TODOS;
+  if (args.framework.length === 0) {
+    todos = args.todos;
   } else {
-    todos = [...TODOS, ...FRONT_END_TODOS];
+    todos = [...args.todos, ...args.frontEndTodos];
   }
 
-  if (!OWNER) {
+  if (!args.owner) {
     todos.push("\n - Replace all <OWNER>");
   }
 
-  if (!REPOSITORY) {
+  if (!args.repository) {
     todos.push("\n - Replace all <REPOSITORY>");
   }
 
   return todos;
 };
 
-export default setProjectTodos();
+export const PROJECT_TODOS = setProjectTodos({
+  framework: FRAMEWORK,
+  todos: TODOS,
+  frontEndTodos: FRONT_END_TODOS,
+  owner: OWNER,
+  repository: REPOSITORY,
+});
