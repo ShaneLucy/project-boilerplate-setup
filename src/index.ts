@@ -58,6 +58,10 @@ const configureReadme = (): void => {
   Exec.writeFile("README.md", readme);
 };
 
+const cleanUp = (): void => {
+  Exec.rmRf();
+};
+
 const scaffoldProject = (): void => {
   initialiseGit();
   configureGithubActions();
@@ -68,3 +72,4 @@ const scaffoldProject = (): void => {
 };
 
 scaffoldProject();
+cleanUp();

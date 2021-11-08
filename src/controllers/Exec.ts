@@ -1,5 +1,5 @@
 import { exec, execSync } from "child_process";
-import { writeFile } from "fs/promises";
+import { writeFile, rm } from "fs/promises";
 import { mkdirSync } from "fs";
 
 import Logger from "./Logger";
@@ -51,6 +51,17 @@ export default class Exec {
       Logger.success(`${path} created`);
     } catch (error) {
       Logger.error(error);
+    }
+  }
+
+  static async rmRf() {
+    Logger.info("Performing cleanup");
+    try {
+      await rm(process.cwd(), { recursive: true, force: true });
+      Logger.success("Project Configured\n Setup files sucessfully removed");
+    } catch (error) {
+      Logger.success("Project Configured");
+      Logger.error(`Unable to remove setup files\n ${error}`);
     }
   }
 }
