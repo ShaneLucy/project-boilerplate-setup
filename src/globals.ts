@@ -20,10 +20,6 @@ export const HOOKS: Array<Hooks> = [
     name: "pre-push",
     action: "npm run test",
   },
-  // {
-  //   name: "pre-commit",
-  //   action: "do something to prevent commiting on master",
-  // },
 ];
 
 export const PRETTIER_FILE_CONTENT = `{

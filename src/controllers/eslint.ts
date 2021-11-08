@@ -1,4 +1,3 @@
-import Logger from "./Logger";
 import { FRAMEWORK } from "./framework";
 import { ESLINT_OPTIONS, FRAMEWORK_OPTIONS } from "../globals";
 
@@ -20,7 +19,6 @@ export const setEslint = (args: Args): string => {
   }
 
   if (eslint === undefined) {
-    Logger.error("Couldn't determine which eslint package to use");
     eslint = "eslint-config-typescript-airbnb-prettier";
   }
 
