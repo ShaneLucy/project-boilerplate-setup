@@ -57,7 +57,7 @@ export default class Exec {
   static async rmRf() {
     Logger.info("Performing cleanup");
     try {
-      await rm(`process.cwd()/setup`, { recursive: true, force: true });
+      await rm(`${process.cwd()}/setup`, { recursive: true, force: true });
       Logger.success("Project Configured\n Setup files sucessfully removed");
     } catch (error) {
       Logger.success("Project Configured");
