@@ -1,8 +1,8 @@
 import logger from "./logger";
 import { Logger } from "../types";
-import Exec from "./Exec";
+import { runSync } from "./exec";
 
-const getRemote = (): string => Exec.runSync("git config --get remote.origin.url").toString();
+const getRemote = (): string => runSync("git config --get remote.origin.url").toString();
 
 export const setRemote = (url: string): Array<string> => {
   try {

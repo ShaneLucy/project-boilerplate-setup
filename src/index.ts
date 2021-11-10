@@ -1,5 +1,5 @@
 import { existsSync } from "fs";
-import Exec from "./controllers/Exec";
+import { runSync, writeToFile, mkdir, run, rmRf } from "./controllers/exec";
 import {
   HOOKS,
   PRETTIER_FILE_CONTENT,
@@ -15,37 +15,37 @@ import { PROJECT_TODOS } from "./controllers/todos";
 
 const initialiseGit = (): void => {
   if (!existsSync(".git")) {
-    Exec.runSync("git init");
+    runSync("git init");
   }
 };
 
 const configureGithubActions = (): void => {
-  Exec.mkdir("/.github/workflows");
+  mkdir("/.github/workflows");
   GITHUB_ACTIONS.forEach((action) => {
-    Exec.writeFile(`.github/workflows/${action.name}.yml`, action.action);
+    writeToFile(`.github/workflows/${action.name}.yml`, action.action);
   });
 };
 
 const configureEslint = (): void => {
-  Exec.writeFile(".eslintrc.js", setEslintFileContents(ESLINT));
-  Exec.writeFile(".eslintignore", ESLINT_IGNORE_CONTENT);
-  Exec.run(`npm i -D ${ESLINT}`);
-  Exec.run("npm set-script lint 'prettier --write . && eslint src/**'");
-  Exec.run("npm set-script lint-fix 'prettier --write . && eslint src/** --fix'");
+  writeToFile(".eslintrc.js", setEslintFileContents(ESLINT));
+  writeToFile(".eslintignore", ESLINT_IGNORE_CONTENT);
+  run(`npm i -D ${ESLINT}`);
+  run("npm set-script lint 'prettier --write . && eslint src/**'");
+  run("npm set-script lint-fix 'prettier --write . && eslint src/** --fix'");
 };
 
 const configureGitHooks = (): void => {
-  Exec.runSync("npm i -D husky");
-  Exec.runSync("npx husky install");
+  runSync("npm i -D husky");
+  runSync("npx husky install");
 
   HOOKS.forEach((hook) => {
-    Exec.runSync(`npx husky add .husky/${hook.name} "${hook.action}"`);
+    runSync(`npx husky add .husky/${hook.name} "${hook.action}"`);
   });
 };
 
 const configurePrettier = (): void => {
-  Exec.writeFile(".prettierrc", PRETTIER_FILE_CONTENT);
-  Exec.writeFile(".prettierignore", PRETTIER_IGNORE_CONTENT);
+  writeToFile(".prettierrc", PRETTIER_FILE_CONTENT);
+  writeToFile(".prettierignore", PRETTIER_IGNORE_CONTENT);
 };
 
 const configureReadme = (): void => {
@@ -55,11 +55,11 @@ const configureReadme = (): void => {
   }
 
   readme = readme.concat(`\n\n# TODO\n${PROJECT_TODOS}\n\n${README_CONTENT}`);
-  Exec.writeFile("README.md", readme);
+  writeToFile("README.md", readme);
 };
 
 const cleanUp = (): void => {
-  Exec.rmRf();
+  rmRf();
 };
 
 const scaffoldProject = (): void => {
