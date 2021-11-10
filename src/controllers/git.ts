@@ -1,4 +1,4 @@
-import logger from "./Logger";
+import logger from "./logger";
 import { Logger } from "../types";
 import Exec from "./Exec";
 

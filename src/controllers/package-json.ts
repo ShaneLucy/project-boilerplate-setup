@@ -1,5 +1,5 @@
 import { readFileSync } from "fs";
-import logger from "./Logger";
+import logger from "./logger";
 import { Logger } from "../types";
 import type { PackageJson } from "../types";
 

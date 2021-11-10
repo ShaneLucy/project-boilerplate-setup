@@ -2,7 +2,7 @@ import { exec, execSync } from "child_process";
 import { writeFile, rm } from "fs/promises";
 import { mkdirSync } from "fs";
 
-import logger from "./Logger";
+import logger from "./logger";
 import { Logger } from "../types";
 
 export default class Exec {
