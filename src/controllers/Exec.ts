@@ -2,66 +2,67 @@ import { exec, execSync } from "child_process";
 import { writeFile, rm } from "fs/promises";
 import { mkdirSync } from "fs";
 
-import Logger from "./Logger";
+import logger from "./Logger";
+import { Logger } from "../types";
 
 export default class Exec {
   static run(command: string) {
-    Logger.info(`Executing ${command}`);
+    logger(Logger.info, `Executing ${command}`);
 
     exec(`${command}`, (error, stdout) => {
       if (error?.message) {
-        Logger.error(error.message);
+        logger(Logger.error, error.message);
         return;
       }
 
-      Logger.success(`${command} succeeded`);
-      Logger.info(stdout);
+      logger(Logger.success, `${command} succeeded`);
+      logger(Logger.info, stdout);
     });
   }
 
   static runSync(command: string): string | Error {
-    Logger.info(`Executing ${command}`);
+    logger(Logger.info, `Executing ${command}`);
 
     return (() => {
       try {
         const resp = execSync(`${command}`);
-        Logger.info(resp);
+        logger(Logger.info, resp);
         return resp.toString();
       } catch (e) {
-        Logger.error(e);
+        logger(Logger.error, e);
         return e as Error;
       }
     })();
   }
 
   static async writeFile(file: string, content: string) {
-    Logger.info(`Creating ${file}`);
+    logger(Logger.info, `Creating ${file}`);
     try {
       await writeFile(file, content);
-      Logger.success(`${file} configured`);
+      logger(Logger.success, `${file} configured`);
     } catch (error) {
-      Logger.error(error);
+      logger(Logger.error, error);
     }
   }
 
   static mkdir(path: string) {
-    Logger.info(`Creating Directory ${path}`);
+    logger(Logger.info, `Creating Directory ${path}`);
     try {
       mkdirSync(`${process.cwd()}${path}`, { recursive: true });
-      Logger.success(`${path} created`);
+      logger(Logger.success, `${path} created`);
     } catch (error) {
-      Logger.error(error);
+      logger(Logger.error, error);
     }
   }
 
   static async rmRf() {
-    Logger.info("Performing cleanup");
+    logger(Logger.info, "Performing cleanup");
     try {
       await rm(`${process.cwd()}/setup`, { recursive: true, force: true });
-      Logger.success("Project Configured\n Setup files sucessfully removed");
+      logger(Logger.success, "Project Configured\n Setup files sucessfully removed");
     } catch (error) {
-      Logger.success("Project Configured");
-      Logger.error(`Unable to remove setup files\n ${error}`);
+      logger(Logger.success, "Project Configured");
+      logger(Logger.error, `Unable to remove setup files\n ${error}`);
     }
   }
 }

@@ -1,4 +1,5 @@
-import Logger from "./Logger";
+import logger from "./Logger";
+import { Logger } from "../types";
 import Exec from "./Exec";
 
 const getRemote = (): string => Exec.runSync("git config --get remote.origin.url").toString();
@@ -14,7 +15,7 @@ export const setRemote = (url: string): Array<string> => {
 
     return response;
   } catch (e) {
-    Logger.error(e);
+    logger(Logger.error, e);
     return ["<OWNER>", "<REPOSITORY>"];
   }
 };
