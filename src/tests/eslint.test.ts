@@ -15,7 +15,7 @@ describe("testing correct eslint package is determined", () => {
       eslintOptions: ESLINT_OPTIONS,
     });
 
-    expect(ESLINT).toEqual("eslint-config-typescript-airbnb-prettier-svelte");
+    expect(ESLINT).toBe("eslint-config-typescript-airbnb-prettier-svelte");
   });
 
   test("correct eslint package is set when a config for the supplied framework doesn't exist", () => {
@@ -25,7 +25,7 @@ describe("testing correct eslint package is determined", () => {
       eslintOptions: ESLINT_OPTIONS,
     });
 
-    expect(ESLINT).toEqual("eslint-config-typescript-airbnb-prettier");
+    expect(ESLINT).toBe("eslint-config-typescript-airbnb-prettier");
   });
 
   test("correct eslint package is set when not using a framework", () => {
@@ -35,7 +35,7 @@ describe("testing correct eslint package is determined", () => {
       eslintOptions: ESLINT_OPTIONS,
     });
 
-    expect(ESLINT).toEqual("eslint-config-typescript-airbnb-prettier");
+    expect(ESLINT).toBe("eslint-config-typescript-airbnb-prettier");
   });
 
   test("defaults to base typescript config if framework options and eslint options are empty", () => {
@@ -45,7 +45,7 @@ describe("testing correct eslint package is determined", () => {
       eslintOptions: [""],
     });
 
-    expect(ESLINT).toEqual("eslint-config-typescript-airbnb-prettier");
+    expect(ESLINT).toBe("eslint-config-typescript-airbnb-prettier");
   });
 });
 
