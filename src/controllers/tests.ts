@@ -14,5 +14,5 @@ export default (): void => {
   run("npm i -D eslint-plugin-jest");
   writeToFile("jest.config.js", JEST_FILE_CONTENTS);
   run("npm set-script test 'jest'");
-  run("npm set-script  'jest --coverage'");
+  run("npm set-script coverage 'jest --coverage'");
 };
