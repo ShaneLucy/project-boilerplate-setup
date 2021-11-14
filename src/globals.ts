@@ -31,6 +31,14 @@ export const setEslintFileContents = (eslint: string): string => `module.exports
   extends: "${eslint.split("eslint-config-")[1]}",
 };\n`;
 
+export const LINT_SCRIPT = "prettier --write . && eslint src/**";
+export const LINT_FIX_SCRIPT = "prettier --write . && eslint src/** --fix";
+
+export const STYLELINT_FILE_CONTENTS = `{
+  "extends": "stylelint-config-standard"
+}
+`;
+
 export const GITHUB_ACTIONS: Array<GithubActions> = [
   {
     name: "lint-test",
