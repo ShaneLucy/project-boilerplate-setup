@@ -175,8 +175,7 @@ export const SHIELDS: Array<Shield> = [
   },
   {
     name: "Dependency Status",
-    url:
-      "https://img.shields.io/librariesio/github/<OWNER>/<REPOSITORY>?logo=libraries.io&logoWidth=20",
+    url: "https://img.shields.io/depfu/<OWNER>/<REPOSITORY>",
   },
   {
     name: "Code Size",
@@ -214,7 +213,7 @@ export const FRONT_END_TODOS = [
 export const TODOS = [
   "\n- Link project with https://sonarcloud.io/",
   "\n- Link project with https://coveralls.io/",
-  "\n- Link project with https://libraries.io/",
+  "\n- Link project with https://depfu.com",
   "\n- Link project with https://snyk.io/",
   "\n- Link project with https://www.codefactor.io/",
 ];
