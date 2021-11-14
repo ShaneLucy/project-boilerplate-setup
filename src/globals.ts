@@ -28,7 +28,7 @@ node_modules/**
 export const PRETTIER_IGNORE_CONTENT = `node_modules/**`;
 
 export const setEslintFileContents = (eslint: string): string => `module.exports = {
-  extends: "${eslint.split("eslint-config-")[1]}",
+  extends: ["${eslint.split("eslint-config-")[1]}","plugin:jest/recommended","plugin:jest/style"],
 };\n`;
 
 export const LINT_SCRIPT = "prettier --write . && eslint src/**";
@@ -38,6 +38,12 @@ export const STYLELINT_FILE_CONTENTS = `{
   "extends": "stylelint-config-standard"
 }
 `;
+
+export const JEST_FILE_CONTENTS = `/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+module.exports = {
+  preset: "ts-jest",
+  testEnvironment: "node",
+};`;
 
 export const GITHUB_ACTIONS: Array<GithubActions> = [
   {

@@ -17,6 +17,8 @@ import { FRAMEWORK } from "./controllers/framework";
 import { PROJECT_SHIELDS } from "./controllers/shields";
 import { PROJECT_TODOS } from "./controllers/todos";
 
+import testConfig from "./controllers/tests";
+
 const initialiseGit = (): void => {
   if (!existsSync(".git")) {
     runSync("git init");
@@ -88,6 +90,7 @@ const scaffoldProject = (): void => {
   configureGithubActions();
   configureLinting();
   configureGitHooks();
+  testConfig();
   configurePrettier();
   configureReadme();
 };
