@@ -19,15 +19,15 @@ export const setOtherShields = (args: BaseUrlArgs): Array<Shield> => {
     shields = [...args.shields, ...args.frontEndShields];
   }
 
-  shields = shields.map((shield) => ({
-    name: shield.name,
-    url: shield.url.replace("<OWNER>", args.owner),
-  }));
+  shields = shields.map((shield) => {
+    let url = shield.url.replace("<OWNER>", args.owner);
+    url = url.replace("<REPOSITORY>", args.repository);
 
-  shields = shields.map((shield) => ({
-    name: shield.name,
-    url: shield.url.replace("<REPOSITORY>", args.repository),
-  }));
+    return {
+      name: shield.name,
+      url,
+    };
+  });
 
   return shields;
 };
@@ -52,6 +52,7 @@ export const generateMarkdownForShields = (configuredShields: Array<Shield>): Ar
       ? `[![${shield.name}](${shield.url})](${shield.url})`
       : `[![${shield.name}](${shield.url})](${shield.url}) `
   );
+
 const OTHER_SHIELDS = setOtherShields({
   framework: FRAMEWORK,
   shields: SHIELDS,
