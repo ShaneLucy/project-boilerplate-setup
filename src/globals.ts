@@ -36,14 +36,14 @@ export const LINT_FIX_SCRIPT = "prettier --write . && eslint src/** --fix";
 
 export const STYLELINT_FILE_CONTENTS = `{
   "extends": "stylelint-config-standard"
-}
+}\n
 `;
 
 export const JEST_FILE_CONTENTS = `/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
-};`;
+};\n`;
 
 export const GITHUB_ACTIONS: Array<GithubActions> = [
   {
