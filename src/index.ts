@@ -9,6 +9,7 @@ import {
   STYLELINT_FILE_CONTENTS,
   LINT_SCRIPT,
   LINT_FIX_SCRIPT,
+  GITIGNORE_CONTENT,
 } from "./globals";
 import { configureEslint } from "./controllers/eslint";
 import { FRAMEWORK } from "./controllers/framework";
@@ -21,6 +22,7 @@ const initialiseGit = (): void => {
   if (!existsSync(".git")) {
     runSync("git init");
   }
+  writeToFile(".gitignore", GITIGNORE_CONTENT);
 };
 
 const configureGithubActions = (): void => {

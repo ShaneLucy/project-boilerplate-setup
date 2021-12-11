@@ -85,6 +85,7 @@ A package to automate the boring bits when setting up a new project
 - Node v14 or greater
 - Npm version 7 or greater
 - Unix based system
+- Have a node project initialised, e.g. `npm init`
 
 ### Executing program
 
