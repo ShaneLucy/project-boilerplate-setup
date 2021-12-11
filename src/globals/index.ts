@@ -4,6 +4,8 @@ import { BUILD, COVERAGE, LINT_TEST } from "./workflows";
 export { default as README_CONTENT } from "./readme";
 export { default as SHARED_SHIELDS } from "./shields/shared";
 export { default as FRONT_END_SHIELDS } from "./shields/front-end";
+export { default as JEST_FILE_CONTENTS } from "./testing/jest";
+export { default as PLAYWRIGHT_FILE_CONTENTS } from "./testing/playwright";
 
 export const ESLINT_OPTIONS = [
   "eslint-config-typescript-airbnb-prettier-svelte",
@@ -39,12 +41,6 @@ export const STYLELINT_FILE_CONTENTS = `{
   "extends": "stylelint-config-standard"
 }\n
 `;
-
-export const JEST_FILE_CONTENTS = `/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
-module.exports = {
-  preset: "ts-jest",
-  testEnvironment: "node",
-};\n`;
 
 export const GITHUB_ACTIONS: Array<GithubActions> = [
   {
