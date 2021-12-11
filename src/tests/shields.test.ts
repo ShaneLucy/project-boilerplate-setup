@@ -50,7 +50,7 @@ describe("github shields  are set correctly", () => {
 
 describe("that the correct shields to use are determined from the project configuration", () => {
   test("that the front end shields are included if the framework is set", () => {
-    const SHIELDS = setOtherShields({
+    const SHARED_SHIELDS = setOtherShields({
       framework: "svelte",
       shields: [
         {
@@ -68,7 +68,7 @@ describe("that the correct shields to use are determined from the project config
       repository: "project-boilerplate-setup",
     });
 
-    expect(SHIELDS).toEqual([
+    expect(SHARED_SHIELDS).toEqual([
       {
         name: "coverage",
         url: "https://somenicewebsite.io/ShaneLucy/project-boilerplate-setup",
@@ -81,7 +81,7 @@ describe("that the correct shields to use are determined from the project config
   });
 
   test("that the front end shields aren't included if the framework isn't set", () => {
-    const SHIELDS = setOtherShields({
+    const SHARED_SHIELDS = setOtherShields({
       framework: "",
       shields: [
         {
@@ -99,7 +99,7 @@ describe("that the correct shields to use are determined from the project config
       repository: "project-boilerplate-setup",
     });
 
-    expect(SHIELDS).toEqual([
+    expect(SHARED_SHIELDS).toEqual([
       {
         name: "coverage",
         url: "https://somenicewebsite.io/ShaneLucy/project-boilerplate-setup",
@@ -110,7 +110,7 @@ describe("that the correct shields to use are determined from the project config
 
 describe("testing that the <OWNER> and <REPOSITORY> values are replaced correctly", () => {
   test("that if the owner is blank then the placeholder remains", () => {
-    const SHIELDS = setOtherShields({
+    const SHARED_SHIELDS = setOtherShields({
       framework: "",
       shields: [
         {
@@ -128,7 +128,7 @@ describe("testing that the <OWNER> and <REPOSITORY> values are replaced correctl
       repository: "project-boilerplate-setup",
     });
 
-    expect(SHIELDS).toEqual([
+    expect(SHARED_SHIELDS).toEqual([
       {
         name: "coverage",
         url: "https://somenicewebsite.io/<OWNER>/project-boilerplate-setup",
@@ -137,7 +137,7 @@ describe("testing that the <OWNER> and <REPOSITORY> values are replaced correctl
   });
 
   test("that if the repository is blank then the placeholder remains", () => {
-    const SHIELDS = setOtherShields({
+    const SHARED_SHIELDS = setOtherShields({
       framework: "",
       shields: [
         {
@@ -155,7 +155,7 @@ describe("testing that the <OWNER> and <REPOSITORY> values are replaced correctl
       repository: "<REPOSITORY>",
     });
 
-    expect(SHIELDS).toEqual([
+    expect(SHARED_SHIELDS).toEqual([
       {
         name: "coverage",
         url: "https://somenicewebsite.io/ShaneLucy/<REPOSITORY>",

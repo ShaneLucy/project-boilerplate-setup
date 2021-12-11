@@ -1,4 +1,4 @@
-import { GITHUB_ACTIONS, SHIELDS, FRONT_END_SHIELDS } from "../globals";
+import { GITHUB_ACTIONS, SHARED_SHIELDS, FRONT_END_SHIELDS } from "../globals";
 import { FRAMEWORK } from "./framework";
 import { OWNER, REPOSITORY } from "./git";
 import type { GithubActions, Shield } from "../types";
@@ -55,7 +55,7 @@ export const generateMarkdownForShields = (configuredShields: Array<Shield>): Ar
 
 const OTHER_SHIELDS = setOtherShields({
   framework: FRAMEWORK,
-  shields: SHIELDS,
+  shields: SHARED_SHIELDS,
   frontEndShields: FRONT_END_SHIELDS,
   owner: OWNER,
   repository: REPOSITORY,
