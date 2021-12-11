@@ -23,7 +23,7 @@ describe("github shields  are set correctly", () => {
     });
   });
 
-  test("somethihg", () => {
+  test("that the placeholders are replaced with owner and repository if they have been set", () => {
     const GITHUB_SHIELDS = setGithubShields({
       githubActions: [
         { name: "build", action: "do something" },
