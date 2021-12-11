@@ -43,8 +43,20 @@ export const setGithubShieldUrl = (owner: string, repository: string, file: stri
   url: `https://github.com/${owner}/${repository}/actions/workflows/${file}.yml/badge.svg`,
 });
 
-export const setGithubShields = (args: GithubShieldArgs): Array<Shield> =>
-  args.githubActions.map((action) => setGithubShieldUrl(args.owner, args.repository, action.name));
+export const setGithubShields = (args: GithubShieldArgs): Array<Shield> => {
+  const RESPONSE: Array<Shield> = [];
+  args.githubActions.forEach((action) => {
+    if (action.name === "end-to-end-tests") {
+      if (FRAMEWORK.length > 0) {
+        RESPONSE.push(setGithubShieldUrl(args.owner, args.repository, action.name));
+      }
+    } else {
+      RESPONSE.push(setGithubShieldUrl(args.owner, args.repository, action.name));
+    }
+  });
+
+  return RESPONSE;
+};
 
 export const generateMarkdownForShields = (configuredShields: Array<Shield>): Array<string> =>
   configuredShields.map((shield, index) =>
