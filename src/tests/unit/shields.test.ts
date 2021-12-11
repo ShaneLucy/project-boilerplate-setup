@@ -3,7 +3,7 @@ import {
   setOtherShields,
   setGithubShields,
   setGithubShieldUrl,
-} from "../controllers/shields";
+} from "../../controllers/shields";
 
 describe("github shields  are set correctly", () => {
   test("that the correct url is set", () => {

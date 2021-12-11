@@ -1,4 +1,4 @@
-import { setRemote } from "../controllers/git";
+import { setRemote } from "../../controllers/git";
 
 describe("testing git methods", () => {
   test("correct owner and repository are set", () => {

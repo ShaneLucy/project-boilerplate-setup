@@ -1,4 +1,4 @@
-import { setProjectTodos } from "../controllers/todos";
+import { setProjectTodos } from "../../controllers/todos";
 
 describe("testing that the correct todos are set depending on project configuration", () => {
   test("that if the framework isn't set, the front-end todos aren't included in project todos", () => {

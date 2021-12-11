@@ -1,4 +1,4 @@
-import { setFramework } from "../controllers/framework";
+import { setFramework } from "../../controllers/framework";
 
 describe("testing that the correct framework is determined from package.json", () => {
   test("correct framework is returned as svelte", () => {

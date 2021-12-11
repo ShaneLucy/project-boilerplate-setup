@@ -1,4 +1,4 @@
-import { setPackageJson, setPackageJsonKeys } from "../controllers/package-json";
+import { setPackageJson, setPackageJsonKeys } from "../../controllers/package-json";
 
 describe("testing package.json methods", () => {
   test("if the package.json is invalid an empty object is returned", () => {
