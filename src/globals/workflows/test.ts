@@ -17,6 +17,6 @@ jobs:
           node-version: "lts/*"
       - name: Install dependencies
         run: npm i
-      - name: Lint
-        run: npm run tests
+      - name: Run Unit & Integration Tests
+        run: npm run test
 `;
