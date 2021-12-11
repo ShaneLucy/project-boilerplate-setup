@@ -1,4 +1,4 @@
-export default `name: build
+export default `name: Build
 
 on:
   pull_request:
