@@ -20,12 +20,12 @@ const configurePlaywright = () => {
 };
 
 export default (): void => {
-  mkdir("src/tests/unit");
-  mkdir("src/tests/integration");
+  mkdir("/src/tests/unit");
+  mkdir("/src/tests/integration");
 
   configureJest();
   if (FRAMEWORK.length > 0) {
-    mkdir("src/tests/e2e");
+    mkdir("/src/tests/e2e");
     run("npm set-script test:pre-push 'npm run test && npm run test:e2e'");
     configurePlaywright();
   }
