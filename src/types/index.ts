@@ -65,9 +65,3 @@ export interface Shield {
   name: string;
   url: string;
 }
-
-export enum Logger {
-  info = "\x1b[37m%s\x1b[0m",
-  success = "\x1b[32m%s\x1b[0m",
-  error = "\x1b[31m%s\x1b[0m",
-}

@@ -1,5 +1,5 @@
 import { existsSync } from "fs";
-import { runSync, writeToFile, mkdir, run, rmRf } from "./controllers/exec";
+import { runSync, writeToFile, mkdir, run, cleanUp } from "./controllers/exec";
 import {
   HOOKS,
   PRETTIER_FILE_CONTENT,
@@ -81,11 +81,7 @@ const configureReadme = (): void => {
   writeToFile("README.md", readme);
 };
 
-const cleanUp = (): void => {
-  rmRf();
-};
-
-const scaffoldProject = (): void => {
+const scaffoldProject = async (): Promise<void> => {
   initialiseGit();
   configureGithubActions();
   configureLinting();
@@ -93,7 +89,7 @@ const scaffoldProject = (): void => {
   testConfig();
   configurePrettier();
   configureReadme();
+  cleanUp();
 };
 
 scaffoldProject();
-cleanUp();

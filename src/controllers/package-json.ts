@@ -1,15 +1,14 @@
 import { readFileSync } from "fs";
-import logger from "./logger";
-import { Logger } from "../types";
+import { logger } from "./logger";
 import type { PackageJson } from "../types";
 
 export const setPackageJson = (path: string): PackageJson => {
   try {
     const packageJson: PackageJson = JSON.parse(readFileSync(path).toString());
-    logger(Logger.success, "package.json parsed");
+    logger("SUCCESS", "package.json parsed");
     return packageJson;
   } catch (e) {
-    logger(Logger.error, e);
+    logger("ERROR", e);
     return {};
   }
 };

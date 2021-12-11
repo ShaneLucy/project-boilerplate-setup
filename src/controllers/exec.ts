@@ -2,65 +2,64 @@ import { exec, execSync } from "child_process";
 import { writeFile, rm } from "fs/promises";
 import { mkdirSync } from "fs";
 
-import logger from "./logger";
-import { Logger } from "../types";
+import { logger } from "./logger";
 
 export const run = (command: string): void => {
-  logger(Logger.info, `Executing ${command}`);
+  logger("INFO", `Executing ${command}`);
 
-  exec(`${command}`, (error, stdout) => {
+  exec(`${command}`, (error) => {
     if (error?.message) {
-      logger(Logger.error, error.message);
+      logger("ERROR", `${command} failed`);
+      logger("ERROR", error.message);
       return;
     }
 
-    logger(Logger.success, `${command} succeeded`);
-    logger(Logger.info, stdout);
+    logger("SUCCESS", `${command} succeeded`);
   });
 };
 
 export const runSync = (command: string): string | Error => {
-  logger(Logger.info, `Executing ${command}`);
+  logger("INFO", `Executing ${command}`);
 
   return (() => {
     try {
       const resp = execSync(`${command}`);
-      logger(Logger.info, resp);
+      logger("SUCCESS", `${command} succeeded`);
       return resp.toString();
     } catch (e) {
-      logger(Logger.error, e);
+      logger("ERROR", `${command} failed`);
+      logger("ERROR", e);
       return e as Error;
     }
   })();
 };
 
 export const writeToFile = async (file: string, content: string): Promise<void> => {
-  logger(Logger.info, `Creating ${file}`);
+  logger("INFO", `Creating ${file}`);
   try {
     await writeFile(file, content);
-    logger(Logger.success, `${file} configured`);
+    logger("SUCCESS", `${file} configured`);
   } catch (error) {
-    logger(Logger.error, error);
+    logger("ERROR", error);
   }
 };
 
 export const mkdir = (path: string): void => {
-  logger(Logger.info, `Creating Directory ${path}`);
+  logger("INFO", `Creating Directory ${path}`);
   try {
     mkdirSync(`${process.cwd()}${path}`, { recursive: true });
-    logger(Logger.success, `${path} created`);
+    logger("SUCCESS", `${path} created`);
   } catch (error) {
-    logger(Logger.error, error);
+    logger("SUCCESS", error);
   }
 };
 
-export const rmRf = async () => {
-  logger(Logger.info, "Performing cleanup");
+export const cleanUp = async () => {
+  logger("INFO", "Performing cleanup");
   try {
     await rm(`${process.cwd()}/setup`, { recursive: true, force: true });
-    logger(Logger.success, "Project Configured\n Setup files sucessfully removed");
+    logger("SUCCESS", "Project Configured & Setup files sucessfully removed");
   } catch (error) {
-    logger(Logger.success, "Project Configured");
-    logger(Logger.error, `Unable to remove setup files\n ${error}`);
+    logger("ERROR", `Unable to remove setup files\n ${error}`);
   }
 };
