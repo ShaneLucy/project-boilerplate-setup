@@ -69,7 +69,9 @@ A package to automate the boring bits when setting up a new project
    4. Add a test:e2e:headless script to the package.json
    5. Create a src/tests/e2e directory
 2. Create a Github Action to run e2e tests
-3. Add the following shields
+3. Install stylelint
+   1. Create a configured `.stylelint.rc.json`
+4. Add the following shields
    1. "https://img.shields.io/w3c-validation/default?targetUrl=WEBSITEURL"
    2. "https://img.shields.io/security-headers?url=WEBSITEURL"
    3. "https://img.shields.io/mozilla-observatory/grade-score/WEBSITEURL?logo=mozilla&logoWidth=20"
