@@ -1,5 +1,6 @@
 import { FRAMEWORK } from "./framework";
-import { ESLINT_OPTIONS, FRAMEWORK_OPTIONS } from "../globals";
+import { writeToFile, run } from "./exec";
+import { ESLINT_OPTIONS, FRAMEWORK_OPTIONS, ESLINT_IGNORE_CONTENT } from "../globals";
 
 interface Args {
   framework: string;
@@ -25,8 +26,18 @@ export const setEslint = (args: Args): string => {
   return eslint;
 };
 
-export const ESLINT = setEslint({
-  framework: FRAMEWORK,
-  frameworkOptions: FRAMEWORK_OPTIONS,
-  eslintOptions: ESLINT_OPTIONS,
-});
+export const setEslintFileContents = (eslint: string): string => `module.exports = {
+  extends: ["${eslint.split("eslint-config-")[1]}","plugin:jest/recommended","plugin:jest/style"],
+};\n`;
+
+export const configureEslint = (): void => {
+  const ESLINT = setEslint({
+    framework: FRAMEWORK,
+    frameworkOptions: FRAMEWORK_OPTIONS,
+    eslintOptions: ESLINT_OPTIONS,
+  });
+
+  writeToFile(".eslintrc.js", setEslintFileContents(ESLINT));
+  writeToFile(".eslintignore", ESLINT_IGNORE_CONTENT);
+  run(`npm i -D ${ESLINT}`);
+};

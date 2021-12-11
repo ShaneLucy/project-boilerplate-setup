@@ -4,15 +4,13 @@ import {
   HOOKS,
   PRETTIER_FILE_CONTENT,
   PRETTIER_IGNORE_CONTENT,
-  ESLINT_IGNORE_CONTENT,
   GITHUB_ACTIONS,
-  setEslintFileContents,
   README_CONTENT,
   STYLELINT_FILE_CONTENTS,
   LINT_SCRIPT,
   LINT_FIX_SCRIPT,
 } from "./globals";
-import { ESLINT } from "./controllers/eslint";
+import { configureEslint } from "./controllers/eslint";
 import { FRAMEWORK } from "./controllers/framework";
 import { PROJECT_SHIELDS } from "./controllers/shields";
 import { PROJECT_TODOS } from "./controllers/todos";
@@ -36,12 +34,6 @@ const configureStylelint = (): void => {
   writeToFile(".stylelintrc.json", STYLELINT_FILE_CONTENTS);
   run(`npm i -D stylelint`);
   run(`npm i -D stylelint-config-standard`);
-};
-
-const configureEslint = (): void => {
-  writeToFile(".eslintrc.js", setEslintFileContents(ESLINT));
-  writeToFile(".eslintignore", ESLINT_IGNORE_CONTENT);
-  run(`npm i -D ${ESLINT}`);
 };
 
 const configureLinting = (): void => {

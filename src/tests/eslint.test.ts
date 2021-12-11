@@ -1,5 +1,4 @@
-import { setEslint } from "../controllers/eslint";
-import { setEslintFileContents } from "../globals";
+import { setEslint, setEslintFileContents } from "../controllers/eslint";
 
 describe("testing correct eslint package is determined", () => {
   const FRAMEWORK_OPTIONS = ["svelte", "vue", "react"];
