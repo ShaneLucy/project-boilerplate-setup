@@ -180,10 +180,6 @@ export const SHIELDS: Array<Shield> = [
       "https://img.shields.io/snyk/vulnerabilities/github/<OWNER>/<REPOSITORY>?logo=snyk&logoWidth=20",
   },
   {
-    name: "Dependency Status",
-    url: "https://img.shields.io/depfu/<OWNER>/<REPOSITORY>",
-  },
-  {
     name: "Code Size",
     url:
       "https://img.shields.io/github/languages/code-size/<OWNER>/<REPOSITORY>?logo=github&logoWidth=20",
@@ -219,7 +215,6 @@ export const FRONT_END_TODOS = [
 export const TODOS = [
   "\n- Link project with https://sonarcloud.io/",
   "\n- Link project with https://coveralls.io/",
-  "\n- Link project with https://depfu.com",
   "\n- Link project with https://snyk.io/",
   "\n- Link project with https://www.codefactor.io/",
 ];
