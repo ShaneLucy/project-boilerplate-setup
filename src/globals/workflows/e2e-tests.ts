@@ -1,11 +1,10 @@
-export default `name: Code Test Coverage
+export default `name: End-to-End Tests
 
 on:
-  push:
   pull_request:
 
 jobs:
-  coverage:
+  e2e-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,10 +16,10 @@ jobs:
           node-version: "lts/*"
       - name: Install dependencies
         run: npm i
-      - name: Generate Coverage Report
-        run: npm run coverage
-      - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: \${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        run: npm run build
+      - name: Install operating system dependencies
+        run: npx playwright install-deps
+      - name: Run your tests
+        run: npm run test:e2e:headless
 `;

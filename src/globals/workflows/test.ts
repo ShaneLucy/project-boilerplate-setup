@@ -1,12 +1,12 @@
-export default `name: lint & test
+export default `name: Tests
 
 on:
   push:
   pull_request:
 
 jobs:
-  lint-test:
-    runs-on: macos-latest
+  tests:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout current repository
@@ -15,12 +15,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "lts/*"
-      - name: Update npm
-        run: npm install -g npm@latest
       - name: Install dependencies
         run: npm i
       - name: Lint
-        run: npm run lint
-      - name: Run tests
-        run: npm run test
+        run: npm run tests
 `;

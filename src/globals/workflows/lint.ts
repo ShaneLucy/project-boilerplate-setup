@@ -1,11 +1,11 @@
-export default `name: Code Test Coverage
+export default `name: Lint
 
 on:
   push:
   pull_request:
 
 jobs:
-  coverage:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,10 +17,6 @@ jobs:
           node-version: "lts/*"
       - name: Install dependencies
         run: npm i
-      - name: Generate Coverage Report
-        run: npm run coverage
-      - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: \${{ secrets.GITHUB_TOKEN }}
+      - name: Lint
+        run: npm run lint
 `;

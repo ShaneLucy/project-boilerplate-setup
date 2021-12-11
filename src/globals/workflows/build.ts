@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout current repository
@@ -14,8 +14,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "lts/*"
-      - name: Update npm
-        run: npm install -g npm@latest
       - name: Install dependencies
         run: npm i
       - name: Build
