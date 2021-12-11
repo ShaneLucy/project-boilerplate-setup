@@ -1,4 +1,4 @@
-import { run, runSync, writeToFile } from "./exec";
+import { run, runSync, writeToFile, mkdir } from "./exec";
 import { FRAMEWORK } from "./framework";
 import { JEST_FILE_CONTENTS, PLAYWRIGHT_FILE_CONTENTS } from "../globals";
 
@@ -20,12 +20,12 @@ const configurePlaywright = () => {
 };
 
 export default (): void => {
-  runSync("mkdir src/tests/unit -p");
-  runSync("mkdir src/tests/integration -p");
+  mkdir("src/tests/unit");
+  mkdir("src/tests/integration");
 
   configureJest();
   if (FRAMEWORK.length > 0) {
-    runSync("mkdir src/tests/e2e -p");
+    mkdir("src/tests/e2e");
     run("npm set-script test:pre-push 'npm run test && npm run test:e2e'");
     configurePlaywright();
   }

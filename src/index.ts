@@ -26,7 +26,13 @@ const initialiseGit = (): void => {
 const configureGithubActions = (): void => {
   mkdir("/.github/workflows");
   GITHUB_ACTIONS.forEach((action) => {
-    writeToFile(`.github/workflows/${action.name}.yml`, action.action);
+    if (action.name === "end-to-end-tests") {
+      if (FRAMEWORK.length > 0) {
+        writeToFile(`.github/workflows/${action.name}.yml`, action.action);
+      }
+    } else {
+      writeToFile(`.github/workflows/${action.name}.yml`, action.action);
+    }
   });
 };
 
@@ -55,7 +61,7 @@ const configureGitHooks = (): void => {
 
   HOOKS.forEach((hook, index) => {
     if (hook.name === "pre-push") {
-      HOOKS[index].action = FRAMEWORK.length === 0 ? "npm run test:pre-push" : "npm run test";
+      HOOKS[index].action = FRAMEWORK.length === 0 ? "npm run test" : "npm run test:pre-push";
     }
     runSync(`npx husky add .husky/${HOOKS[index].name} "${HOOKS[index].action}"`);
   });

@@ -8,23 +8,23 @@ import type { GithubActions } from "../../types";
 
 const GITHUB_ACTIONS: Array<GithubActions> = [
   {
-    name: "Lint",
+    name: "lint",
     action: LINT,
   },
   {
-    name: "Build",
+    name: "build",
     action: BUILD,
   },
   {
-    name: "Coverage",
+    name: "coverage",
     action: COVERAGE,
   },
   {
-    name: "End-to-End Tests",
+    name: "end-to-end-tests",
     action: E2E_TESTS,
   },
   {
-    name: "Test",
+    name: "test",
     action: TEST,
   },
 ];
