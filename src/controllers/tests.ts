@@ -7,8 +7,8 @@ const configureJest = () => {
   run("npm i -D ts-jest");
   run("npm i -D eslint-plugin-jest");
   writeToFile("jest.config.js", JEST_FILE_CONTENTS);
-  run("npm set-script test:unit 'jest'");
-  run("npm set-script coverage:unit 'jest --coverage'");
+  run("npm set-script test 'jest'");
+  run("npm set-script coverage 'jest --coverage'");
 };
 
 const configurePlaywright = () => {
@@ -26,6 +26,7 @@ export default (): void => {
   configureJest();
   if (FRAMEWORK.length > 0) {
     runSync("mkdir src/tests/e2e -p");
+    run("npm set-script test:pre-push 'npm run test && npm run test:e2e'");
     configurePlaywright();
   }
 };

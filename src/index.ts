@@ -53,8 +53,11 @@ const configureGitHooks = (): void => {
   runSync("npm i -D husky");
   runSync("npx husky install");
 
-  HOOKS.forEach((hook) => {
-    runSync(`npx husky add .husky/${hook.name} "${hook.action}"`);
+  HOOKS.forEach((hook, index) => {
+    if (hook.name === "pre-push") {
+      HOOKS[index].action = FRAMEWORK.length === 0 ? "npm run test:pre-push" : "npm run test";
+    }
+    runSync(`npx husky add .husky/${HOOKS[index].name} "${HOOKS[index].action}"`);
   });
 };
 

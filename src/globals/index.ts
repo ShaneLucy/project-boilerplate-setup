@@ -1,28 +1,18 @@
-import type { Hooks, GithubActions } from "../types";
-import { BUILD, COVERAGE, LINT_TEST } from "./workflows";
+import type { GithubActions } from "../types";
+import { BUILD, COVERAGE, LINT } from "./workflows";
 
 export { default as README_CONTENT } from "./readme";
 export { default as SHARED_SHIELDS } from "./shields/shared";
 export { default as FRONT_END_SHIELDS } from "./shields/front-end";
 export { default as JEST_FILE_CONTENTS } from "./testing/jest";
 export { default as PLAYWRIGHT_FILE_CONTENTS } from "./testing/playwright";
+export { default as HOOKS } from "./hooks";
 
 export const ESLINT_OPTIONS = [
   "eslint-config-typescript-airbnb-prettier-svelte",
   "eslint-config-typescript-airbnb-prettier",
 ];
 export const FRAMEWORK_OPTIONS = ["svelte", "react", "vue"];
-
-export const HOOKS: Array<Hooks> = [
-  {
-    name: "pre-commit",
-    action: "npm run lint",
-  },
-  {
-    name: "pre-push",
-    action: "npm run test",
-  },
-];
 
 export const PRETTIER_FILE_CONTENT = `{
   "printWidth": 100
@@ -44,8 +34,8 @@ export const STYLELINT_FILE_CONTENTS = `{
 
 export const GITHUB_ACTIONS: Array<GithubActions> = [
   {
-    name: "lint-test",
-    action: LINT_TEST,
+    name: "Lint",
+    action: LINT,
   },
   {
     name: "build",
