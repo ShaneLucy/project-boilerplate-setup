@@ -1,24 +1,24 @@
-const PLAYWRIGHT_FILE_CONTENTS = `import { PlaywrightTestConfig, devices } from '@playwright/test';
+const PLAYWRIGHT_FILE_CONTENTS = `import { PlaywrightTestConfig, devices } from "@playwright/test";
 
 const config: PlaywrightTestConfig = {
   forbidOnly: !!process.env.CI,
-  testDir: 'tests/e2e',
+  testDir: "src/tests/e2e",
   retries: process.env.CI ? 2 : 0,
   use: {
-    trace: 'on-first-retry',
+    trace: "on-first-retry",
   },
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
     },
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      name: "firefox",
+      use: { ...devices["Desktop Firefox"] },
     },
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      name: "webkit",
+      use: { ...devices["Desktop Safari"] },
     },
   ],
   expect: {

@@ -18,19 +18,21 @@ export const PRETTIER_FILE_CONTENT = `{
 
 export const ESLINT_IGNORE_CONTENT = `.eslintrc.js
 node_modules/**
+playwright-report/**
 `;
 
-export const GITIGNORE_CONTENT = `/node_modules/`;
+export const GITIGNORE_CONTENT = `/node_modules/
+playwright-report/**`;
 
-export const PRETTIER_IGNORE_CONTENT = `node_modules/**`;
+export const PRETTIER_IGNORE_CONTENT = `node_modules/**
+playwright-report/**`;
 
 export const LINT_SCRIPT = "prettier --write . && eslint src/**";
 export const LINT_FIX_SCRIPT = "prettier --write . && eslint src/** --fix";
 
 export const STYLELINT_FILE_CONTENTS = `{
   "extends": "stylelint-config-standard"
-}\n
-`;
+}\n`;
 
 export const FRONT_END_TODOS = [
   "\n- Link project with https://uptimerobot.com/",
