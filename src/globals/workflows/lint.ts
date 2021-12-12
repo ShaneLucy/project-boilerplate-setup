@@ -3,6 +3,7 @@ export default `name: Lint
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   lint:

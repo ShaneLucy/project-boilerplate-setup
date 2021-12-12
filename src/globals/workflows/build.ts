@@ -2,6 +2,7 @@ export default `name: Build
 
 on:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:

@@ -2,6 +2,7 @@ export default `name: End-to-End Tests
 
 on:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   e2e-tests:

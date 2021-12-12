@@ -3,6 +3,7 @@ export default `name: Tests
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   tests:

@@ -3,6 +3,7 @@ export default `name: Code Test Coverage
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   coverage:
