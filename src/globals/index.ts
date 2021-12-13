@@ -1,8 +1,10 @@
 export { default as README_CONTENT } from "./readme";
 export { default as SHARED_SHIELDS } from "./shields/shared";
 export { default as FRONT_END_SHIELDS } from "./shields/front-end";
-export { default as JEST_FILE_CONTENTS } from "./testing/jest";
-export { default as PLAYWRIGHT_FILE_CONTENTS } from "./testing/playwright";
+export { default as JEST_FILE_CONTENTS } from "./testing/jest-config";
+export { default as PLAYWRIGHT_FILE_CONTENTS } from "./testing/playwright-config";
+export { default as EXAMPLE_JEST_TEST } from "./testing/example-jest-test";
+export { default as EXAMPLE_PLAYWRIGHT_TEST } from "./testing/example-playwright-test";
 export { default as HOOKS } from "./hooks";
 export { default as GITHUB_ACTIONS } from "./workflows";
 
