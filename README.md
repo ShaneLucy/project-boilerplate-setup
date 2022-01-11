@@ -119,13 +119,6 @@ Run the setup script
 npx ts-node setup/src/index.ts
 ```
 
-- How to run the program
-- Step-by-step bullets
-
-```
-code blocks for commands
-```
-
 ## TODO
 
 - When [TypeScript support](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-5.html#esm-nodejs) for ES Modules isn't behind an experimental flag compile and publish this package to the npm registry
