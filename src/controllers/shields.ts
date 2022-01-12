@@ -50,7 +50,9 @@ export const setGithubShields = (args: GithubShieldArgs): Array<Shield> => {
       if (FRAMEWORK.length > 0) {
         RESPONSE.push(setGithubShieldUrl(args.owner, args.repository, action.name));
       }
-    } else {
+    }
+
+    if (action.name !== "Code Test Coverage") {
       RESPONSE.push(setGithubShieldUrl(args.owner, args.repository, action.name));
     }
   });

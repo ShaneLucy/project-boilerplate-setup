@@ -2,19 +2,9 @@ import type { Shield } from "../../types";
 
 const SHARED_SHIELDS: Array<Shield> = [
   {
-    name: "Code Issues",
-    url:
-      "https://img.shields.io/codeclimate/issues/<OWNER>/<REPOSITORY>?logo=codeclimate&logoWidth=20",
-  },
-  {
     name: "Tech Debt",
     url:
       "https://img.shields.io/codeclimate/tech-debt/<OWNER>/<REPOSITORY>?logo=codeclimate&logoWidth=20",
-  },
-  {
-    name: "Code Quality",
-    url:
-      "https://img.shields.io/codefactor/grade/github/<OWNER>/<REPOSITORY>/master?logo=codefactor&logoWidth=20",
   },
   {
     name: "Vulnerabilities",
@@ -29,10 +19,6 @@ const SHARED_SHIELDS: Array<Shield> = [
   {
     name: "Repo Size",
     url: "https://img.shields.io/github/repo-size/<OWNER>/<REPOSITORY>?logo=github&logoWidth=20",
-  },
-  {
-    name: "Issues",
-    url: "https://img.shields.io/github/issues-raw/<OWNER>/<REPOSITORY>?logo=github&logoWidth=20",
   },
   {
     name: "Last Commit",

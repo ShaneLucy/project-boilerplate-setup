@@ -45,6 +45,5 @@ export const TODOS = [
   "\n- Link project with https://sonarcloud.io/",
   "\n- Link project with https://coveralls.io/",
   "\n- Link project with https://snyk.io/",
-  "\n- Link project with https://www.codefactor.io/",
   "\n- Link project with https://codeclimate.com/",
 ];
