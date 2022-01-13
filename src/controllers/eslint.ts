@@ -1,5 +1,5 @@
 import { FRAMEWORK } from "./framework";
-import { writeToFile, run } from "./exec";
+import { writeToFile, runSync } from "./exec";
 import { ESLINT_OPTIONS, FRAMEWORK_OPTIONS, ESLINT_IGNORE_CONTENT } from "../globals";
 
 interface Args {
@@ -12,14 +12,14 @@ export const setEslint = (args: Args): string => {
   let eslint;
 
   if (args.framework.length === 0) {
-    eslint = ESLINT_OPTIONS.find(
-      (element) => !FRAMEWORK_OPTIONS.find((el) => element.includes(el))
+    eslint = args.eslintOptions.find(
+      (element) => !args.frameworkOptions.find((el) => element.includes(el))
     );
   } else {
     eslint = args.eslintOptions.find((element) => element.includes(args.framework));
   }
 
-  if (eslint === undefined) {
+  if (eslint === undefined || eslint.length === 0) {
     eslint = "eslint-config-typescript-airbnb-prettier";
   }
 
@@ -39,5 +39,5 @@ export const configureEslint = (): void => {
 
   writeToFile(".eslintrc.js", setEslintFileContents(ESLINT));
   writeToFile(".eslintignore", ESLINT_IGNORE_CONTENT);
-  run(`npm i -D ${ESLINT}`);
+  runSync(`npm i -D ${ESLINT}`);
 };

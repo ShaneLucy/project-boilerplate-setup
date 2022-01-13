@@ -1,39 +1,38 @@
-import { run, writeToFile, mkdir } from "./exec";
-import { FRAMEWORK } from "./framework";
-import {
-  JEST_FILE_CONTENTS,
-  PLAYWRIGHT_FILE_CONTENTS,
-  EXAMPLE_JEST_TEST,
-  EXAMPLE_PLAYWRIGHT_TEST,
-} from "../globals";
+import { runSync, writeToFile, mkdir } from "./exec";
 
-const configureJest = () => {
+const configureJest = (jestFileContents: string, exampleJestTest: string) => {
   mkdir("/src/tests/unit");
   mkdir("/src/tests/integration");
-  run("npm i -D jest");
-  run("npm i -D ts-jest");
-  run("npm i -D eslint-plugin-jest");
-  run("npm i --save-dev @types/jest");
-  run("npm set-script test 'jest'");
-  run("npm set-script coverage 'jest --coverage'");
-  writeToFile("jest.config.js", JEST_FILE_CONTENTS);
-  writeToFile("src/tests/unit/example.test.ts", EXAMPLE_JEST_TEST);
+  runSync("npm i -D jest");
+  runSync("npm i -D ts-jest");
+  runSync("npm i -D eslint-plugin-jest");
+  runSync("npm i --save-dev @types/jest");
+  runSync("npm set-script test 'jest'");
+  runSync("npm set-script coverage 'jest --coverage'");
+  writeToFile("jest.config.js", jestFileContents);
+  writeToFile("src/tests/unit/example.test.ts", exampleJestTest);
 };
 
-const configurePlaywright = () => {
+const configurePlaywright = (playwrightFileContents: string, examplePlaywrightTest: string) => {
   mkdir("/src/tests/e2e");
-  run("npm i -D @playwright/test");
-  run("npx playwright install");
-  run("npm set-script test:e2e 'playwright test --reporter=html --headed'");
-  run("npm set-script test:e2e:headless 'jest --coverage playwright test --reporter=html'");
-  writeToFile("playwright.config.ts", PLAYWRIGHT_FILE_CONTENTS);
-  writeToFile("src/tests/e2e/example.test.ts", EXAMPLE_PLAYWRIGHT_TEST);
+  runSync("npm i -D @playwright/test");
+  runSync("npx playwright install");
+  runSync("npm set-script test:e2e 'playwright test --reporter=html --headed'");
+  runSync("npm set-script test:e2e:headless 'jest --coverage playwright test --reporter=html'");
+  writeToFile("playwright.config.ts", playwrightFileContents);
+  writeToFile("src/tests/e2e/example.test.ts", examplePlaywrightTest);
 };
 
-export default (): void => {
-  configureJest();
-  if (FRAMEWORK.length > 0) {
-    run("npm set-script test:pre-push 'npm run test && npm run test:e2e'");
-    configurePlaywright();
+export default (
+  jestFileContents: string,
+  exampleJestTest: string,
+  playwrightFileContents: string,
+  examplePlaywrightTest: string,
+  framework: string
+): void => {
+  configureJest(jestFileContents, exampleJestTest);
+  if (framework.length > 0) {
+    runSync("npm set-script test:pre-push 'npm run test && npm run test:e2e'");
+    configurePlaywright(playwrightFileContents, examplePlaywrightTest);
   }
 };

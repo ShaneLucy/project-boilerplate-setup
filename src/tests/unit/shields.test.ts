@@ -24,14 +24,17 @@ describe("github shields  are set correctly", () => {
   });
 
   test("that the placeholders are replaced with owner and repository if they have been set", () => {
-    const GITHUB_SHIELDS = setGithubShields({
-      githubActions: [
-        { name: "build", action: "do something" },
-        { name: "test", action: "do something" },
-      ],
-      owner: "ShaneLucy",
-      repository: "project-boiler-plate-setup",
-    });
+    const GITHUB_SHIELDS = setGithubShields(
+      {
+        githubActions: [
+          { name: "build", action: "do something" },
+          { name: "test", action: "do something" },
+        ],
+        owner: "ShaneLucy",
+        repository: "project-boiler-plate-setup",
+      },
+      ""
+    );
 
     expect(GITHUB_SHIELDS).toEqual([
       {
@@ -45,6 +48,42 @@ describe("github shields  are set correctly", () => {
           "https://github.com/ShaneLucy/project-boiler-plate-setup/actions/workflows/test.yml/badge.svg",
       },
     ]);
+  });
+
+  test("that the end-to-end shield is included when the framework is set", () => {
+    const GITHUB_SHIELDS = setGithubShields(
+      {
+        githubActions: [
+          { name: "end-to-end-tests", action: "do something" },
+          { name: "test", action: "do something" },
+        ],
+        owner: "ShaneLucy",
+        repository: "project-boiler-plate-setup",
+      },
+      "svelte"
+    );
+
+    expect(GITHUB_SHIELDS).toContainEqual({
+      name: "end-to-end-tests",
+      url:
+        "https://github.com/ShaneLucy/project-boiler-plate-setup/actions/workflows/end-to-end-tests.yml/badge.svg",
+    });
+  });
+
+  test("that the end-to-end shield is not included when the framework is not set", () => {
+    const GITHUB_SHIELDS = setGithubShields(
+      {
+        githubActions: [
+          { name: "end-to-end-tests", action: "do something" },
+          { name: "test", action: "do something" },
+        ],
+        owner: "ShaneLucy",
+        repository: "project-boiler-plate-setup",
+      },
+      ""
+    );
+
+    expect(GITHUB_SHIELDS).toHaveLength(1);
   });
 });
 
@@ -91,7 +130,7 @@ describe("that the correct shields to use are determined from the project config
       ],
       frontEndShields: [
         {
-          name: "coverage",
+          name: "end-to-end-tests",
           url: "https://anothernicewebsite.dev/<OWNER>/<REPOSITORY>",
         },
       ],
@@ -99,12 +138,17 @@ describe("that the correct shields to use are determined from the project config
       repository: "project-boilerplate-setup",
     });
 
-    expect(SHARED_SHIELDS).toEqual([
-      {
-        name: "coverage",
-        url: "https://somenicewebsite.io/ShaneLucy/project-boilerplate-setup",
-      },
-    ]);
+    expect(SHARED_SHIELDS).toContainEqual({
+      name: "coverage",
+      url: "https://somenicewebsite.io/ShaneLucy/project-boilerplate-setup",
+    });
+
+    expect(
+      SHARED_SHIELDS.includes({
+        name: "end-to-end-tests",
+        url: "https://anothernicewebsite.dev/<OWNER>/<REPOSITORY>",
+      })
+    ).toBeFalsy();
   });
 });
 
@@ -165,7 +209,7 @@ describe("testing that the <OWNER> and <REPOSITORY> values are replaced correctl
 });
 
 describe("that the correct markdown is generated", () => {
-  test("something", () => {
+  test("markdown is correct", () => {
     const GITHUB_SHIELDS = [
       {
         name: "build",

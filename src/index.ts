@@ -1,5 +1,5 @@
 import { existsSync } from "fs";
-import { runSync, writeToFile, mkdir, run, cleanUp } from "./controllers/exec";
+import { runSync, writeToFile, mkdir, cleanUp } from "./controllers/exec";
 import {
   HOOKS,
   PRETTIER_FILE_CONTENT,
@@ -10,6 +10,10 @@ import {
   LINT_SCRIPT,
   LINT_FIX_SCRIPT,
   GITIGNORE_CONTENT,
+  JEST_FILE_CONTENTS,
+  PLAYWRIGHT_FILE_CONTENTS,
+  EXAMPLE_JEST_TEST,
+  EXAMPLE_PLAYWRIGHT_TEST,
 } from "./globals";
 import { configureEslint } from "./controllers/eslint";
 import { FRAMEWORK } from "./controllers/framework";
@@ -17,6 +21,7 @@ import { PROJECT_SHIELDS } from "./controllers/shields";
 import { PROJECT_TODOS } from "./controllers/todos";
 
 import testConfig from "./controllers/tests";
+import { GithubActions, Hooks } from "./types";
 
 const initialiseGit = (): void => {
   if (!existsSync(".git")) {
@@ -25,11 +30,11 @@ const initialiseGit = (): void => {
   writeToFile(".gitignore", GITIGNORE_CONTENT);
 };
 
-const configureGithubActions = (): void => {
+const configureGithubActions = (githubActions: Array<GithubActions>, framework: string): void => {
   mkdir("/.github/workflows");
-  GITHUB_ACTIONS.forEach((action) => {
+  githubActions.forEach((action) => {
     if (action.name === "end-to-end-tests") {
-      if (FRAMEWORK.length > 0) {
+      if (framework.length > 0) {
         writeToFile(`.github/workflows/${action.name}.yml`, action.action);
       }
     } else {
@@ -38,60 +43,76 @@ const configureGithubActions = (): void => {
   });
 };
 
-const configureStylelint = (): void => {
-  writeToFile(".stylelintrc.json", STYLELINT_FILE_CONTENTS);
-  run(`npm i -D stylelint`);
-  run(`npm i -D stylelint-config-standard`);
+const configureStylelint = (styleLintFileContents: string): void => {
+  writeToFile(".stylelintrc.json", styleLintFileContents);
+  runSync(`npm i -D stylelint`);
+  runSync(`npm i -D stylelint-config-standard`);
 };
 
-const configureLinting = (): void => {
-  let [lintScript, lintScriptFix] = [LINT_SCRIPT, LINT_FIX_SCRIPT];
+const configureLinting = (
+  lintScript: string,
+  lintScriptFix: string,
+  framework: string,
+  styleLintFileContents: string
+): void => {
+  let [lint, lintFix] = [lintScript, lintScriptFix];
   configureEslint();
-  if (FRAMEWORK.length > 0) {
-    configureStylelint();
-    lintScript = LINT_SCRIPT.concat(" && stylelint **/*.css");
-    lintScriptFix = LINT_SCRIPT.concat(" && stylelint **/*.css --fix");
+  if (framework.length > 0) {
+    configureStylelint(styleLintFileContents);
+    lint = lintScript.concat(" && stylelint **/*.css");
+    lintFix = lintScriptFix.concat(" && stylelint **/*.css --fix");
   }
 
-  run(`npm set-script lint '${lintScript}'`);
-  run(`npm set-script lint-fix '${lintScriptFix}'`);
+  runSync(`npm set-script lint '${lint}'`);
+  runSync(`npm set-script lint-fix '${lintFix}'`);
 };
 
-const configureGitHooks = (): void => {
+const configureGitHooks = (hooks: Array<Hooks>, framework: string): void => {
   runSync("npm i -D husky");
   runSync("npx husky install");
 
-  HOOKS.forEach((hook, index) => {
+  hooks.forEach((hook, index) => {
+    let configuredAction = hook.action;
     if (hook.name === "pre-push") {
-      HOOKS[index].action = FRAMEWORK.length === 0 ? "npm run test" : "npm run test:pre-push";
+      configuredAction = framework.length === 0 ? "npm run test" : "npm run test:pre-push";
     }
-    runSync(`npx husky add .husky/${HOOKS[index].name} "${HOOKS[index].action}"`);
+    runSync(`npx husky add .husky/${hooks[index].name} "${configuredAction}"`);
   });
 };
 
-const configurePrettier = (): void => {
-  writeToFile(".prettierrc", PRETTIER_FILE_CONTENT);
-  writeToFile(".prettierignore", PRETTIER_IGNORE_CONTENT);
+const configurePrettier = (prettierFileContent: string, prettierIgnoreContent: string): void => {
+  writeToFile(".prettierrc", prettierFileContent);
+  writeToFile(".prettierignore", prettierIgnoreContent);
 };
 
-const configureReadme = (): void => {
+const configureReadme = (
+  projectShields: Array<string>,
+  projectTodos: Array<string>,
+  readmeContent: string
+): void => {
   let readme = "";
-  for (let index = 0; index < PROJECT_SHIELDS.length; index += 1) {
-    readme = readme.concat(PROJECT_SHIELDS[index]);
+  for (let index = 0; index < projectShields.length; index += 1) {
+    readme = readme.concat(projectShields[index]);
   }
 
-  readme = readme.concat(`\n\n# TODO\n${PROJECT_TODOS}\n\n${README_CONTENT}`);
+  readme = readme.concat(`\n\n# TODO\n${projectTodos}\n\n${readmeContent}`);
   writeToFile("README.md", readme);
 };
 
 const scaffoldProject = async (): Promise<void> => {
   initialiseGit();
-  configureGithubActions();
-  configureLinting();
-  configureGitHooks();
-  testConfig();
-  configurePrettier();
-  configureReadme();
+  configureGithubActions(GITHUB_ACTIONS, FRAMEWORK);
+  configureLinting(LINT_SCRIPT, LINT_FIX_SCRIPT, FRAMEWORK, STYLELINT_FILE_CONTENTS);
+  configureGitHooks(HOOKS, FRAMEWORK);
+  testConfig(
+    JEST_FILE_CONTENTS,
+    PLAYWRIGHT_FILE_CONTENTS,
+    EXAMPLE_JEST_TEST,
+    EXAMPLE_PLAYWRIGHT_TEST,
+    FRAMEWORK
+  );
+  configurePrettier(PRETTIER_FILE_CONTENT, PRETTIER_IGNORE_CONTENT);
+  configureReadme(PROJECT_SHIELDS, PROJECT_TODOS, README_CONTENT);
   cleanUp();
 };
 

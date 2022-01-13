@@ -1,22 +1,8 @@
-import { exec, execSync } from "child_process";
+import { execSync } from "child_process";
 import { writeFile, rm } from "fs/promises";
 import { mkdirSync } from "fs";
 
 import { logger } from "./logger";
-
-export const run = (command: string): void => {
-  logger("INFO", `Executing ${command}`);
-
-  exec(`${command}`, (error) => {
-    if (error?.message) {
-      logger("ERROR", `${command} failed`);
-      logger("ERROR", error.message);
-      return;
-    }
-
-    logger("SUCCESS", `${command} succeeded`);
-  });
-};
 
 export const runSync = (command: string): string | Error => {
   logger("INFO", `Executing ${command}`);
@@ -58,7 +44,7 @@ export const cleanUp = async () => {
   logger("INFO", "Performing cleanup");
   try {
     await rm(`${process.cwd()}/setup`, { recursive: true, force: true });
-    logger("SUCCESS", "Project Configured & Setup files sucessfully removed");
+    logger("SUCCESS", "Project Configured & Setup files successfully removed");
   } catch (error) {
     logger("ERROR", `Unable to remove setup files\n ${error}`);
   }
