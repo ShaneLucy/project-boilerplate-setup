@@ -16,9 +16,9 @@ const configureJest = (jestFileContents: string, exampleJestTest: string) => {
 const configurePlaywright = (playwrightFileContents: string, examplePlaywrightTest: string) => {
   mkdir("/src/tests/e2e");
   runSync("npm i -D @playwright/test");
-  runSync("npx playwright install");
+  runSync("npm i playwright");
   runSync("npm set-script test:e2e 'playwright test --reporter=html --headed'");
-  runSync("npm set-script test:e2e:headless 'jest --coverage playwright test --reporter=html'");
+  runSync("npm set-script test:e2e:headless 'test --coverage playwright test --reporter=html'");
   writeToFile("playwright.config.ts", playwrightFileContents);
   writeToFile("src/tests/e2e/example.test.ts", examplePlaywrightTest);
 };

@@ -106,8 +106,8 @@ const scaffoldProject = async (): Promise<void> => {
   configureGitHooks(HOOKS, FRAMEWORK);
   testConfig(
     JEST_FILE_CONTENTS,
-    PLAYWRIGHT_FILE_CONTENTS,
     EXAMPLE_JEST_TEST,
+    PLAYWRIGHT_FILE_CONTENTS,
     EXAMPLE_PLAYWRIGHT_TEST,
     FRAMEWORK
   );
